@@ -30,6 +30,8 @@ class Dream:
         self.term_overlap = {}
         self.top_3 = []
         self.top_theme = None #will be str
+        self.dream_symbols = dream_symbols
+
         
     def dream_info(self): #KHOA
         """
@@ -78,6 +80,22 @@ class Dream:
         Concepts:
         - Comprehension          
         """
+        dream_themes = []
+        for theme, symbol in self.dream_symbols.items():
+            theme_list = []
+            for symbol, meaning in symbols.items():
+                theme_list,extend(meanings)
+            dream_themes.append(set(theme_list))
+
+        dream_terms = []
+        for theme_list in dream_theme:
+            for term in theme_list:
+                if term not in theme_list:
+                    dream_term.append(term)
+
+        return dream_terms
+                
+            
         raise NotImplementedError
     
     def find_dream_theme(self): #MAYA
