@@ -84,7 +84,7 @@ class Dream:
         for theme, symbol in self.dream_symbols.items():
             theme_list = []
             for symbol, meaning in symbols.items():
-                theme_list,extend(meanings)
+                theme_list.extend(meanings)
             dream_themes.append(set(theme_list))
 
         dream_terms = []
