@@ -104,7 +104,18 @@ class Dream:
     raise NotImplementedError
 
 def generalize_dream(self):#STINA
-        #making big list with all term variations based on the doc written
+'''
+ Processes a dictionary of themes to extract term variations and main terms.
+
+    Returns:
+        tuple:
+            - A list of all term variations from the themes.
+            - A dictionary mapping each theme to its list of main terms.
+
+    This function iterates through the dictionary where all of the themes are linked to terms and
+    their variations. It compiles a list of all variations and a dictionary that connect each theme to its primary terms.
+    
+'''    
     general_terms = []
 
     for theme_name, term_list in themes_terms_meanings.items():
