@@ -30,7 +30,6 @@ class Dream:
         self.term_overlap = {}
         self.top_3 = []
         self.top_theme = None #will be str
-        self.dream_symbols = dream_symbols
 
         
     def dream_info(self): #KHOA
@@ -43,11 +42,13 @@ class Dream:
         Assigns unique id to dream instance (dream_id). Assigns attribute 
         self.dream_id 
         
-        Stores this data into 2 lists of dicts (one item per class instance). 
+        Maybe stores this data into 2 lists of dicts (one item per class instance). 
         This will be used in the next class we write which pretains more to 
-        data and visualization. This data will be stored into an external file
+        data and visualization. This data will be stored into an external json file
         that will be imported into this script once we do class 2 in the next
         submission. 
+        
+        JSON FILE:
         
             1. a list with each item being a dictionary with 
             keys: dream_id, date, time, dream_inst_words (list populated in 
@@ -56,34 +57,46 @@ class Dream:
             2. a list with each item being a dictionary with
             keys: dream_id, dream_contents
             
+        Within this script/class:
+            
+            Assign values directly to self.date, self.time. self.dream_contents.
+            This way the object instance has these values that will be 
+            called upon in other methods of the class.
+            
         Concepts:
         - With Statements: file operations for storing/loading dream data.
+        -regular expressions to make sure inputted text is formatted correctly
+         by user
         """
         raise NotImplementedError
     
     def generalize_dream(self): #STINA
-        """
-        Step 1: create 5-10 lists that represent the different themes we 
-        will use. The contents will be terms that are present in dreams of 
-        the repective theme. 
+        """ 
         -note: account for terms that could be said multiple ways
                     with nested lists so that it only counts as one item in the
                     overall list. This will help when we use the max function
                     to find the most overlap to determine theme in 
                     find_dream_theme() method.
         
-        Step 2:
-        create master list of general dream terms called (general_terms) that
-        is ALL of the terms from the themes list WITH NO OVERLAP. 
-            -this will be helpful in parsing the dream_contents  
+        Step 1:
+        create master dict of general dream terms called (themes_terms_meanings) that
+        is ALL of the terms from the themes list WITH NO OVERLAP. This can exist
+        in an external file for ease.
+        
+        the information in this is the term, variations of the term, and the meanings. 
+        
+        Step 2: make a list called general_terms that has all the terms/variations of
+        terms in it so that in the next method, the dreams can be parsed for these words.
             
         Concepts:
         - Comprehension          
         """
+        #attempt 1
+        """
         dream_themes = []
         for theme, symbol in self.dream_symbols.items():
             theme_list = []
-            for symbol, meaning in symbols.items():
+            for symbols, meanings in symbols.items():
                 theme_list.extend(meanings)
             dream_themes.append(set(theme_list))
 
@@ -94,15 +107,12 @@ class Dream:
                     dream_term.append(term)
 
         return dream_terms
-                
-            
-        raise NotImplementedError
-    
+        """
     def find_dream_theme(self): #MAYA
         """
         Uses theme lists from generalize_dreams() method. Parses dream_contents
         to fill attribute self.dream_patterns list with terms that overlap with 
-        general_terms list using regular expressions. 
+        general_terms list. 
         
         Uses dictionary to find the count of times each present term in 
         general_terms occurs in dream_contents. Return this in a dictionary 
@@ -111,9 +121,9 @@ class Dream:
         be helpful if the number of overlaping terms is the same for multiple 
         themes and for the second class. 
         
-        Uses the set() function and intersect method of sets to find the top 3
-        themes called top_3. This is an attribute of the class that will be 
-        filled. Uses max()
+        Maybe uses the set() function and intersect method of sets to find the top 3
+        themes called top_3. Or another approach to get the same result.
+        This is an attribute of the class that will be filled. Maybe uses max()
         
         Returns the theme with the most overlap as top_theme (attribute of class).
         If there is a tie in the max overlap between multiple themes, use the 
@@ -122,7 +132,6 @@ class Dream:
         Concepts:
         - Set Operations on Set
         - Use of a Key Function: Determine the top dream themes
-        - Regular Expressions
         """
         raise NotImplementedError
     
@@ -140,9 +149,6 @@ class Dream:
         Concepts:
         - Conditional Expressions
         - F-strings Containing Expressions
-
-        Parameters:
-        - top_theme (str): The top theme based on overlap.
         """
         
         raise NotImplementedError
