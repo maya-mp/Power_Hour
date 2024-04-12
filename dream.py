@@ -124,8 +124,7 @@ def generalize_dream(self):#STINA
             if variations:
                 general_terms.extend(variations)
 
-    #create dicts for just main terms for each theme
-    theme_terms = {}
+theme_terms = {}
     
     for theme_name, terms_data in themes_terms_meanings.items():
         terms = [term_data['term'] for term_data in terms_data]
