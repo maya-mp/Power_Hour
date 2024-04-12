@@ -1,6 +1,6 @@
 import json
 import re
-from dream import themes_terms_meanings
+from general_info import themes_terms_meanings 
 #from (py doc of dict) import (dict name) PUT IN AFTER MAKING FILE
 
 class Dream:
