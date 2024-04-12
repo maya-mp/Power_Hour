@@ -104,6 +104,20 @@ class Dream:
     raise NotImplementedError
 
 def generalize_dream(self):#STINA
+            dream_themes = []
+        for theme, symbol in self.dream_symbols.items():
+            theme_list = []
+            for symbols, meanings in symbols.items():
+                theme_list.extend(meanings)
+            dream_themes.append(set(theme_list))
+
+        dream_terms = []
+        for theme_list in dream_theme:
+            for term in theme_list:
+                if term not in theme_list:
+                    dream_term.append(term)
+
+        return dream_terms
     raise NotImplemented
 
 def find_dream_theme(self): #MAYA
