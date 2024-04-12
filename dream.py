@@ -34,7 +34,7 @@ class Dream:
         self.top_3 = []
         self.top_theme = None
 
-    def dream_info(self): #KHOA
+    def dream_info(self): #KHOA DO
         """
         Initializes dream data (using 3 input statements and raise value errors 
         based on regular expressions to ensure inuput is in correct format).
