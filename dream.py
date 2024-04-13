@@ -36,29 +36,20 @@ class Dream:
 
     def dream_info(self): #KHOA DO
         """
-        Initializes dream data (using 3 input statements and raise value errors 
-        based on regular expressions to ensure inuput is in correct format).
-        
-        Will assign self.date, self.time, self.dream_contents
-        
-        Assigns unique id to dream instance (dream_id). Assigns attribute 
-        self.dream_id 
-        
-        Stores this data into 2 lists of dicts (one item per class instance). 
-        This will be used in the next class we write which pretains more to 
-        data and visualization. This data will be stored into an external file
-        that will be imported into this script once we do class 2 in the next
-        submission. 
-        
-            1. a list with each item being a dictionary with 
-            keys: dream_id, date, time, dream_inst_words (list populated in 
-            find_dream_theme() method)
-            
-            2. a list with each item being a dictionary with
-            keys: dream_id, dream_contents
-            
-        Concepts:
-        - With Statements: file operations for storing/loading dream data.
+               Initializes Dream class.
+
+        Attributes:
+        - dream_id (int): A unique identifier for each dream.
+        - date (str): The date entered.
+        - time (str): The time entered.
+        - dream_contents (str): The user's dream recount.
+        - dream_patterns (list): A list to store patterns found in the dream 
+                                 populated in INSERT METHOD.
+        -term_overlap (dict): keys are the terms present in dream_contents and
+        general_terms and values are the count of their presence
+        -top_3 (list): list of the top three dream themes in order of most
+                        overlap to least
+        -top_theme (str): the top theme based on overlap 
         """
          # Ask for user input and validate it
         date = input("Enter the date of the dream (YYYY-MM-DD): ")
