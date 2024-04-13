@@ -36,20 +36,28 @@ class Dream:
 
     def dream_info(self): #KHOA DO
         """
-               Initializes Dream class.
+            Collects and validates the date, time, and narrative contents of a dream 
+        from user input. It ensures that date and time are in the standard ISO 
+        format (YYYY-MM-DD and HH:MM respectively). The validated input is then 
+        assigned to the instance attributes and aggregated into dictionaries 
+        which are appended to class-level lists for subsequent data handling and 
+        visualization.
 
-        Attributes:
-        - dream_id (int): A unique identifier for each dream.
-        - date (str): The date entered.
-        - time (str): The time entered.
-        - dream_contents (str): The user's dream recount.
-        - dream_patterns (list): A list to store patterns found in the dream 
-                                 populated in INSERT METHOD.
-        -term_overlap (dict): keys are the terms present in dream_contents and
-        general_terms and values are the count of their presence
-        -top_3 (list): list of the top three dream themes in order of most
-                        overlap to least
-        -top_theme (str): the top theme based on overlap 
+        This method performs the following steps:
+        - Prompt the user for the date, time, and content of the dream.
+        - Validate each input using regular expressions to match expected patterns.
+        - Raise a ValueError with an informative message if the input does not 
+          match the pattern.
+        - If input validation is successful, store the data in instance attributes.
+        - Construct dictionaries containing the dream's metadata and narrative.
+        - Append these dictionaries to corresponding class-level lists.
+        - Persist the updated lists to external JSON files for future retrieval and analysis.
+        
+        The method ensures the collection of cleanly formatted and consistent data
+        for each dream entry, facilitating reliable analysis in subsequent processes.
+
+        Raises:
+            ValueError: If any of the inputs do not conform to their expected format.
         """
          # Ask for user input and validate it
         date = input("Enter the date of the dream (YYYY-MM-DD): ")
