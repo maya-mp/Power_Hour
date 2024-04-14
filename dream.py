@@ -1,6 +1,6 @@
 import json
 import re
-from general_info import themes_terms_meanings 
+from testing import themes_terms_meanings 
 
 class Dream:
     dream_counter = 0
@@ -16,24 +16,13 @@ class Dream:
         - dream_contents (str): The user's dream recount.
         - dream_patterns (list): A list to store patterns found in the dream 
                                  populated in INSERT METHOD.
+        -term_overlap (dict): keys are the terms present in dream_contents and
+        general_terms and values are the count of their presence
         -top_3 (list): list of the top three dream themes in order of most
                         overlap to least
         -top_theme (str): the top theme based on overlap
-        -theme_terms (dict): a dictionary of all the key term (values) 
-        for all of the themes (keys) in themes_terms_meanings
-        -general_terms (list): all the term variations present in 
-        themes_terms_meanings
-        -themes_variations (dict): a dictionary of all the variations of key 
-        terms (values) for all of the themes (keys) in themes_terms_meanings
-        -general_terms (list): all the term variations present in 
-        themes_terms_meanings
-        -count_word (dict): the number of occurances of each term variation 
-        in deam_contents
-        -count_theme (dict): the number of times a term variation of a given
-        theme occurs (theme is key, occurace is value)
-        -term_overlap (dict): similar to count_word, but the keys are the key
-        terms and the values are the occurances of any variation of the key
-        term
+        -dream_symbols: (dict) contains master container of general dream
+                        symbols
         """
         self.dream_id = Dream.dream_counter
         self.date = None 
@@ -52,7 +41,7 @@ class Dream:
 
     def dream_info(self): #KHOA DO
         """
-        Collects and validates the date, time, and narrative contents of a dream 
+            Collects and validates the date, time, and narrative contents of a dream 
         from user input. It ensures that date and time are in the standard ISO 
         format (YYYY-MM-DD and HH:MM respectively). The validated input is then 
         assigned to the instance attributes and aggregated into dictionaries 
@@ -129,7 +118,6 @@ class Dream:
                 variations = term_dict.get("variations")
                 if variations:
                     self.general_terms.extend(variations)    
-                    
         for theme_name, terms_data in themes_terms_meanings.items():
             terms = [term_data['term'] for term_data in terms_data]
             self.theme_terms[theme_name] = terms
@@ -138,14 +126,8 @@ class Dream:
 
     def find_dream_theme(self): #MAYA
         """
-        Sets up information for analysis by finding important terms in the 
-        user's dream contents. 
-        
-        Side effects:
-            Updates attributes: dream_patterns, themes_variations, count_word,
-            term_overlap, count_theme, top_3, and top_theme. 
+        WRITING ONCE I GET BACK TO CAMPUS - MAYBE AROUND 5
         """
-        #cross check each word in contents to general_terms
         words = self.dream_contents.split()
         for term in self.general_terms:
             matches = [word.lower() for word in words if word.lower() == term]
@@ -184,7 +166,43 @@ class Dream:
         self.top_theme = self.top_3[0]#need to allow for instances with less than three
     
     def dream_analysis(self): #MALIK
-        raise NotImplementedError
+        """
+        Writes unique f-string analysis dependant on top_theme. A uniquely
+        formatted f-string should be written for each theme. 
+    
+        Returns the appropriate f-string.   
+    
+        Concepts:
+        - Conditional Expressions
+        - F-strings Containing Expressions
+        """
+        intro = f"Your top three themes were {self.top_3}. Among those your most prevelant theme was {self.top_theme}."
+        
+        if self.top_theme == "stress and anxiety":
+            return f"{intro} Your dream indicates you are feeling high levels of stress and anxiety. Imagery such as {dream_patterns} are often
+                    associated with high stress levels increased anxiety."
+        elif self.top_theme == "transitions and changes":
+            return f" {intro} Your dream indicates you are in a period of transitions and change. Imagery such as {dream_patterns} are often 
+                    associated with high stress levels"
+        elif self.top_theme == "positive emotional states.":
+            return f"{intro} Your dream indicates you are in a positive emotional state currently in your life. Imagery such as {dream_patterns} are 
+                    often associated with positive emotional states."
+        elif self.top_theme == "needs and wants":
+            return f"{intro} Your dream indicates you are currently in need of something or have a strong desire for something specific.
+                    Imagery such as {dream_patterns} are often associated with a subconcious desire for something." 
+        elif self.top_theme == "relationships":
+            return f"{intro} Your dream indicates you are currently focused on relationships, and it is weighing heavily on your mind.
+                    Imagery such as {dream_patterns} are often associated with your subconcious thoughts about a relationship in your life."
+        elif self.top_theme == "reflection":
+            return f"{intro} Your dream indicates you are currently in a deep state subconcious state of reflection, Imagery such as {dream_patterns} are 
+                    often associated with a deep mental state of reflection."
+        elif self.top_theme == "fears":
+            return f"{intro} Your dream indicates you have been thinking critically about fear, and is currently a large part of your subconcious. 
+                    Imagery such as {dream_patterns} are often associated with a high subconcious level of fear." 
+        elif self.top_theme == "spiritual insights": 
+            return f"{intro} Your dream indicates you subconciously long for spirtual insight. It is often associated with a desire for change, or the 
+                    end of something. Imagery such as {dream_patterns} are most associated with these ideologies."
+        
     
     def __repr__(self): #EVERYONE - will not be written for this submission
         raise NotImplementedError
