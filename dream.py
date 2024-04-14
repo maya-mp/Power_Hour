@@ -25,7 +25,8 @@ class Dream:
         themes_terms_meanings
         -themes_variations (dict): a dictionary of all the variations of key 
         terms (values) for all of the themes (keys) in themes_terms_meanings
-        -general_terms (list): all the term variations present in themes_terms_meanings
+        -general_terms (list): all the term variations present in 
+        themes_terms_meanings
         -count_word (dict): the number of occurances of each term variation 
         in deam_contents
         -count_theme (dict): the number of times a term variation of a given
@@ -51,7 +52,7 @@ class Dream:
 
     def dream_info(self): #KHOA DO
         """
-            Collects and validates the date, time, and narrative contents of a dream 
+        Collects and validates the date, time, and narrative contents of a dream 
         from user input. It ensures that date and time are in the standard ISO 
         format (YYYY-MM-DD and HH:MM respectively). The validated input is then 
         assigned to the instance attributes and aggregated into dictionaries 
