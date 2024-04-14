@@ -34,6 +34,8 @@ class Dream:
         self.top_theme = None
         self.theme_terms = {}
         self.general_terms = []
+        self.themes_variations = {}
+        self.count_word = {}
         
 
     def dream_info(self): #KHOA DO
@@ -62,22 +64,17 @@ class Dream:
             ValueError: If any of the inputs do not conform to their expected format.
         """
          # Ask for user input and validate it
-        date = input("Enter the date of the dream (YYYY-MM-DD): ")
+        self.date = input("Enter the date of the dream (YYYY-MM-DD): ")
         if not re.match(r'\d{4}-\d{2}-\d{2}', date):
             raise ValueError("Date is not in the correct format (YYYY-MM-DD).")
         
-        time = input("Enter the time you woke up (HH:MM): ")
+        self.time = input("Enter the time you woke up (HH:MM): ")
         if not re.match(r'\d{2}:\d{2}', time):
             raise ValueError("Time is not in the correct format (HH:MM).")
         
-        dream_contents = input("Describe your dream: ")
+        self.dream_contents = input("Describe your dream: ")
         if not dream_contents:
             raise ValueError("Dream description cannot be empty.")
-
-        # Assign values to the instance
-        self.date = date
-        self.time = time
-        self.dream_contents = dream_contents
 
         # Prepare dictionaries for the lists
         dream_data_dict = {
@@ -136,36 +133,37 @@ class Dream:
             self.dream_patterns.extend(matches)
         
         #shows all variation terms per each theme
-        themes_variations = {}
         for theme, terms in themes_terms_meanings.items():
             theme_variations = []
             for term in terms:
                 variations = term["variations"]
                 theme_variations.extend(variations)
-                themes_variations[theme] = theme_variations
+                self.themes_variations[theme] = theme_variations
         
-        #finds the amount of times a variation of a term is present
-        count_word = {}
+        # finds the amount of times a variation of a term is present
+        for word in self.dream_patterns:
+            for theme_variations in self.themes_variations.values():
+                if word in theme_variations:  
+                    self.count_word[word] = self.count_word.get(word, 0) + 1
 
-        for word in self.dream_patterns: 
-            for theme_variations in themes_variations.values():
-                if word in themes_variations:
-                    count_word[word] = count_word.get(word, 0) + 1
-
-        term_overlap = {}
-        for word, occurrence in count_word.items():
-            term_overlap[word] = occurrence
-        
+        # Update term overlap with counts for variations
+        for word, occurrence in self.count_word.items():
+            for theme, terms in themes_terms_meanings.items():
+                for term_data in terms:
+                    if word in term_data["variations"]:
+                        term = term_data["term"]
+                        self.term_overlap[term] = self.term_overlap.get(term, 0) + occurrence
+          
         #finds the amount of times a variation/term of a certain theme
         count_theme = {} #key = name of theme, value = number of term occurances
         for word in self.dream_patterns: 
-            for theme, theme_variations in themes_variations.items():
+            for theme, theme_variations in self.themes_variations.items():
                 if word in theme_variations:
                     count_theme[theme] = count_theme.get(theme, 0) + 1
 
         #find top theme and top 3 and assign back to attribute of instance
         self.top_3 = sorted(count_theme, key=count_theme.get, reverse=True)[:3]
-        self.top_theme = self.top_3[0]
+        self.top_theme = self.top_3[0]#need to allow for instances with less than three
     
     def dream_analysis(self): #MALIK
         raise NotImplementedError
