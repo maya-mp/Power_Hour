@@ -36,6 +36,7 @@ class Dream:
         self.general_terms = []
         self.themes_variations = {}
         self.count_word = {}
+        self.count_theme = {}
         
 
     def dream_info(self): #KHOA DO
@@ -155,14 +156,13 @@ class Dream:
                         self.term_overlap[term] = self.term_overlap.get(term, 0) + occurrence
           
         #finds the amount of times a variation/term of a certain theme
-        count_theme = {} #key = name of theme, value = number of term occurances
         for word in self.dream_patterns: 
             for theme, theme_variations in self.themes_variations.items():
                 if word in theme_variations:
-                    count_theme[theme] = count_theme.get(theme, 0) + 1
+                    self.count_theme[theme] = self.count_theme.get(theme, 0) + 1
 
         #find top theme and top 3 and assign back to attribute of instance
-        self.top_3 = sorted(count_theme, key=count_theme.get, reverse=True)[:3]
+        self.top_3 = sorted(self.count_theme, key=self.count_theme.get, reverse=True)[:3]
         self.top_theme = self.top_3[0]#need to allow for instances with less than three
     
     def dream_analysis(self): #MALIK
