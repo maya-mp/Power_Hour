@@ -16,13 +16,23 @@ class Dream:
         - dream_contents (str): The user's dream recount.
         - dream_patterns (list): A list to store patterns found in the dream 
                                  populated in INSERT METHOD.
-        -term_overlap (dict): keys are the terms present in dream_contents and
-        general_terms and values are the count of their presence
         -top_3 (list): list of the top three dream themes in order of most
                         overlap to least
         -top_theme (str): the top theme based on overlap
-        -dream_symbols: (dict) contains master container of general dream
-                        symbols
+        -theme_terms (dict): a dictionary of all the key term (values) 
+        for all of the themes (keys) in themes_terms_meanings
+        -general_terms (list): all the term variations present in 
+        themes_terms_meanings
+        -themes_variations (dict): a dictionary of all the variations of key 
+        terms (values) for all of the themes (keys) in themes_terms_meanings
+        -general_terms (list): all the term variations present in themes_terms_meanings
+        -count_word (dict): the number of occurances of each term variation 
+        in deam_contents
+        -count_theme (dict): the number of times a term variation of a given
+        theme occurs (theme is key, occurace is value)
+        -term_overlap (dict): similar to count_word, but the keys are the key
+        terms and the values are the occurances of any variation of the key
+        term
         """
         self.dream_id = Dream.dream_counter
         self.date = None 
@@ -118,6 +128,7 @@ class Dream:
                 variations = term_dict.get("variations")
                 if variations:
                     self.general_terms.extend(variations)    
+                    
         for theme_name, terms_data in themes_terms_meanings.items():
             terms = [term_data['term'] for term_data in terms_data]
             self.theme_terms[theme_name] = terms
@@ -126,8 +137,14 @@ class Dream:
 
     def find_dream_theme(self): #MAYA
         """
-        WRITING ONCE I GET BACK TO CAMPUS - MAYBE AROUND 5
+        Sets up information for analysis by finding important terms in the 
+        user's dream contents. 
+        
+        Side effects:
+            Updates attributes: dream_patterns, themes_variations, count_word,
+            term_overlap, count_theme, top_3, and top_theme. 
         """
+        #cross check each word in contents to general_terms
         words = self.dream_contents.split()
         for term in self.general_terms:
             matches = [word.lower() for word in words if word.lower() == term]
