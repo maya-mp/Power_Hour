@@ -1,7 +1,6 @@
 import json
 import re
 from general_info import themes_terms_meanings 
-#from (py doc of dict) import (dict name) PUT IN AFTER MAKING FILE
 
 class Dream:
     dream_counter = 0
@@ -33,6 +32,9 @@ class Dream:
         self.term_overlap = {}
         self.top_3 = []
         self.top_theme = None
+        self.theme_terms = {}
+        self.general_terms = []
+        
 
     def dream_info(self): #KHOA DO
         """
@@ -100,45 +102,76 @@ class Dream:
 
         print(f"Dream with ID {self.dream_id} has been recorded.")
 
-    raise NotImplementedError
+    def generalize_dream(self):#STINA
+        '''
+        Processes a dictionary of themes to extract term variations and main terms.
 
-def generalize_dream(self):#STINA
-'''
- Processes a dictionary of themes to extract term variations and main terms.
+        Returns:
+            tuple:
+                - A list of all term variations from the themes.
+                - A dictionary mapping each theme to its list of main terms.
 
-    Returns:
-        tuple:
-            - A list of all term variations from the themes.
-            - A dictionary mapping each theme to its list of main terms.
-
-    This function iterates through the dictionary where all of the themes are linked to terms and
-    their variations. It compiles a list of all variations and a dictionary that connect each theme to its primary terms.
+        This function iterates through the dictionary where all of the themes are linked to terms and
+        their variations. It compiles a list of all variations and a dictionary that connect each theme to its primary terms.
     
-'''    
-    general_terms = []
-
-    for theme_name, term_list in themes_terms_meanings.items():
-        for term_dict in term_list:
-            variations = term_dict.get("variations")
-            if variations:
-                general_terms.extend(variations)
-
-theme_terms = {}
-    
-    for theme_name, terms_data in themes_terms_meanings.items():
-        terms = [term_data['term'] for term_data in terms_data]
-        theme_terms[theme_name] = terms
+        '''    
+        for theme_name, term_list in themes_terms_meanings.items():
+            for term_dict in term_list:
+                variations = term_dict.get("variations")
+                if variations:
+                    self.general_terms.extend(variations)    
+        for theme_name, terms_data in themes_terms_meanings.items():
+            terms = [term_data['term'] for term_data in terms_data]
+            self.theme_terms[theme_name] = terms
         
-    return general_terms, theme_terms
+        return self.general_terms, self.theme_terms
 
-def find_dream_theme(self): #MAYA
-    raise NotImplementedError
+    def find_dream_theme(self): #MAYA
+        """
+        WRITING ONCE I GET BACK TO CAMPUS - MAYBE AROUND 5
+        """
+        words = self.dream_contents.split()
+        for term in self.general_terms:
+            matches = [word.lower() for word in words if word.lower() == term]
+            self.dream_patterns.extend(matches)
+        
+        #shows all variation terms per each theme
+        themes_variations = {}
+        for theme, terms in themes_terms_meanings.items():
+            theme_variations = []
+            for term in terms:
+                variations = term["variations"]
+                theme_variations.extend(variations)
+                themes_variations[theme] = theme_variations
+        
+        #finds the amount of times a variation of a term is present
+        count_word = {}
+
+        for word in self.dream_patterns: 
+            for theme_variations in themes_variations.values():
+                if word in themes_variations:
+                    count_word[word] = count_word.get(word, 0) + 1
+
+        term_overlap = {}
+        for word, occurrence in count_word.items():
+            term_overlap[word] = occurrence
+        
+        #finds the amount of times a variation/term of a certain theme
+        count_theme = {} #key = name of theme, value = number of term occurances
+        for word in self.dream_patterns: 
+            for theme, theme_variations in themes_variations.items():
+                if word in theme_variations:
+                    count_theme[theme] = count_theme.get(theme, 0) + 1
+
+        #find top theme and top 3 and assign back to attribute of instance
+        self.top_3 = sorted(count_theme, key=count_theme.get, reverse=True)[:3]
+        self.top_theme = self.top_3[0]
     
-def dream_analysis(self): #MALIK
-    raise NotImplementedError
+    def dream_analysis(self): #MALIK
+        raise NotImplementedError
     
-def __repr__(self): #EVERYONE - will not be written for this submission
-    raise NotImplementedError
+    def __repr__(self): #EVERYONE - will not be written for this submission
+        raise NotImplementedError
 
 
     
