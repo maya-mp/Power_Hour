@@ -1,6 +1,6 @@
 import json
 import re
-from testing import themes_terms_meanings 
+from general_info import themes_terms_meanings 
 
 class Dream:
     dream_counter = 0
