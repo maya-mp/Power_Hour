@@ -65,15 +65,15 @@ class Dream:
         """
          # Ask for user input and validate it
         self.date = input("Enter the date of the dream (YYYY-MM-DD): ")
-        if not re.match(r'\d{4}-\d{2}-\d{2}', date):
+        if not re.match(r'\d{4}-\d{2}-\d{2}', self.date):
             raise ValueError("Date is not in the correct format (YYYY-MM-DD).")
         
         self.time = input("Enter the time you woke up (HH:MM): ")
-        if not re.match(r'\d{2}:\d{2}', time):
+        if not re.match(r'\d{2}:\d{2}', self.time):
             raise ValueError("Time is not in the correct format (HH:MM).")
         
         self.dream_contents = input("Describe your dream: ")
-        if not dream_contents:
+        if not self.dream_contents:
             raise ValueError("Dream description cannot be empty.")
 
         # Prepare dictionaries for the lists
