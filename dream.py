@@ -91,14 +91,14 @@ class Dream:
         }
 
         # Append the dictionaries to the class-level lists
-        Dream.dream_data_list.append(dream_data_dict)
-        Dream.dream_contents_list.append(dream_contents_dict)
+        self.dream_data_list.append(dream_data_dict)
+        self.dream_contents_list.append(dream_contents_dict)
         
         # Store the data in an external file
         with open('dream_data.json', 'w') as file:
-            json.dump(Dream.dream_data_list, file, indent=4)
+            json.dump(self.dream_data_list, file, indent=4)
         with open('dream_contents.json', 'w') as file:
-            json.dump(Dream.dream_contents_list, file, indent=4)
+            json.dump(self.dream_contents_list, file, indent=4)
 
         print(f"Dream with ID {self.dream_id} has been recorded.")
 
