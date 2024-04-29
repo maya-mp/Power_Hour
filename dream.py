@@ -128,7 +128,20 @@ class Dream:
 
     def find_dream_theme(self): #MAYA
         """
-        WRITING ONCE I GET BACK TO CAMPUS - MAYBE AROUND 5
+        Analyzes dream contents to find top three most prevalent themes.
+        
+        Args:
+            none
+            
+        Side effects:
+            Updates attributes of class's instance for:
+                -dream_patterns
+                -themes_variations
+                -count_word
+                -term_overlap
+                -count_theme
+                -top_3
+                -top_theme
         """
         words = self.dream_contents.split()
         for term in self.general_terms:
