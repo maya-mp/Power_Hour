@@ -191,32 +191,32 @@ class Dream:
         - Conditional Expressions
         - F-strings Containing Expressions
         """
-        intro = f"Your top three themes were {self.top_3}. Among those your most prevelant theme was {self.top_theme}."
+        intro = f"Your top three themes were {", ".join(self.top_3)}. Among those your most prevelant theme was {self.top_theme}."
         
         if self.top_theme == "stress and anxiety":
             return (f"{intro} Your dream indicates you are feeling high levels of stress and anxiety. Imagery such as {",".join(self.dream_patterns)} are often"
                     f"associated with high stress levels increased anxiety.")
         elif self.top_theme == "transitions and changes":
-            return (f"{intro} Your dream indicates you are in a period of transitions and change. Imagery such as {",".join(self.dream_patterns)} are often" 
+            return (f"{intro} Your dream indicates you are in a period of transitions and change. Imagery such as {", ".join(self.dream_patterns)} are often" 
                     f"associated with high stress levels")
         elif self.top_theme == "positive emotional states.":
-            return (f"{intro} Your dream indicates you are in a positive emotional state currently in your life. Imagery such as {",".join(self.dream_patterns)} are" 
+            return (f"{intro} Your dream indicates you are in a positive emotional state currently in your life. Imagery such as {", ".join(self.dream_patterns)} are" 
                     f"often associated with positive emotional states.")
         elif self.top_theme == "needs and wants":
             return (f"{intro} Your dream indicates you are currently in need of something or have a strong desire for something specific."
-                    f"Imagery such as {",".join(self.dream_patterns)} are often associated with a subconcious desire for something.") 
+                    f" Imagery such as {", ".join(self.dream_patterns)} are often associated with a subconcious desire for something.") 
         elif self.top_theme == "relationships":
             return (f"{intro} Your dream indicates you are currently focused on relationships, and it is weighing heavily on your mind."
-                    f"Imagery such as {",".join(self.dream_patterns)} are often associated with your subconcious thoughts about a relationship in your life.")
+                    f" Imagery such as {", ".join(self.dream_patterns)} are often associated with your subconcious thoughts about a relationship in your life.")
         elif self.top_theme == "reflection":
             return (f"{intro} Your dream indicates you are currently in a deep state subconcious state of reflection, Imagery such as {self.dream_patterns} are" 
-                    f"often associated with a deep mental state of reflection.")
+                    f" often associated with a deep mental state of reflection.")
         elif self.top_theme == "fears":
             return (f"{intro} Your dream indicates you have been thinking critically about fear, and is currently a large part of your subconcious." 
-                    f"Imagery such as {",".join(self.dream_patterns)} are often associated with a high subconcious level of fear.") 
+                    f" Imagery such as {", ".join(self.dream_patterns)} are often associated with a high subconcious level of fear.") 
         elif self.top_theme == "spiritual insights": 
             return (f"{intro} Your dream indicates you subconciously long for spirtual insight. It is often associated with a desire for change, or the" 
-                    f"end of something. Imagery such as {",".join(self.dream_patterns)} are most associated with these ideologies.")
+                    f" end of something. Imagery such as {", ".join(self.dream_patterns)} are most associated with these ideologies.")
 
 
 dream_instance = Dream()
