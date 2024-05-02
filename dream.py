@@ -1,5 +1,6 @@
 import json
 import re
+import sys
 from general_info import themes_terms_meanings 
 
 class Dream:
@@ -148,8 +149,12 @@ class Dream:
                 -top_theme
         """
         words = self.dream_contents.split()
-        if not words:
-            raise ValueError("Dream contents were not descriptive enough to run analysis.")
+        try:
+            if not words:
+                raise ValueError("Dream contents are empty.")
+        except ValueError:
+            print("Not enough content for analysis but dream will be logged.")
+            return
     
         for term in self.general_terms:
             matches = [word.lower() for word in words if word.lower() == term]
@@ -233,3 +238,92 @@ dream_instance.generalize_dream()
 dream_instance.find_dream_theme()
 analysis = dream_instance.dream_analysis()
 print(analysis)
+
+class UpdateGeneralInfo: #MAYA this will be very last class in the code
+    def __init__(self):
+        self.run_program = None
+        self.theme_identity = None
+        self.key_word = None
+        self.variants = []
+        self.meanings = []
+        self.cont = None 
+        
+    def theme_update(self):
+        self.run_program = input("Are you trying to update the dream information term list? Enter 'yes' or 'no'.")
+        if self.run_program.lower().strip() == "yes":
+            pass
+        elif self.run_program.lower().strip() == "no":
+            print("Goodbye!")
+            sys.exit()
+        else:
+            print("Invalid input. Please enter 'yes' or 'no'.")
+            return
+
+        theme_dict = {
+            1: "stress and anxiety", 
+            2: "transitions and changes",
+            3: "positive emotional states", 
+            4: "needs and wants",
+            5: "relationships", 
+            6: "reflection",
+            7: "fears", 
+            8: "spiritual insights"}
+    
+        while True:
+            theme_value = input('Enter the number corresponding to the theme of your term:\n'
+                        '1: Stress and anxiety\n'
+                        '2: Transitions and changes\n'
+                        '3: Positive emotional states\n'
+                        '4: Needs and wants\n'
+                        '5: Relationships\n'
+                        '6: Reflection\n'
+                        '7: Fears\n'
+                        '8: Spiritual insights\n')
+        
+            try:
+                theme_value = int(theme_value)
+                if theme_value not in theme_dict:
+                    raise ValueError("Invalid number.")
+                else:
+                    break
+            except ValueError:
+                print("Invalid input. Please enter a number between 1 and 8.")
+
+        self.theme_identity = theme_dict[theme_value]
+        
+        self.key_word = input("Enter the key word:""\n"
+                               "For example:\n"
+                               "skeleton").lower.strip()
+        
+        self.variants = [variant.strip() for variant in input("Enter the variations of the key term with commas to separate:\n"
+                                                  "For example:\n"
+                                                  "bones, skull, dead body, carcass\n").lower().split(',')]
+        
+        self.meanings = [meaning.strip() for meaning in input("Enter the dream meanings of the key term with commas to separate:\n"
+                                                  "For example:\n"
+                                                  "secrets, subconscious worry, thoughts of death, guilt\n").lower().split(',')]
+        
+        #Finished updating attributes. Now will use to alter the general_info doc.
+        
+        new_term = {"term": self.key_word, "variations": self.variants, "meanings": self.meanings}
+        themes_terms_meanings[self.theme_identity].append(new_term)
+        
+        with open('general_info.json', 'w') as file:
+            json.dump(themes_terms_meanings, file, indent=4)
+        
+        print("Term added successfully.")
+        
+        self.cont = input("Any other terms to add? Type 'Yes' or 'No': ")
+        if self.cont.lower().strip() == "yes":
+            self.theme_update()
+        elif self.cont.lower().strip() == "no":
+            print("Goodbye!")
+            sys.exit()
+        else:
+            print("Invalid input. Please enter 'yes' or 'no'.")
+            self.theme_update()  
+
+# Start the updating process for general_info
+updater = UpdateGeneralInfo()
+updater.theme_update()
+        
