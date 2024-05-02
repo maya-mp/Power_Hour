@@ -4,6 +4,7 @@ from general_info import themes_terms_meanings
 
 class Dream:
     dream_counter = 0  
+    
     def __init__(self): #EVERYONE
         """
         Initializes Dream class.
@@ -23,8 +24,8 @@ class Dream:
         -dream_symbols: (dict) contains master container of general dream
                         symbols
         """
-        Dream.dream_counter += 1  
-        self.dream_id = Dream.dream_counter
+        #FIX DREAM ID ISSUE
+        self.dream_id = Dream.dream_counter + 1
         self.date = None 
         self.time = None 
         self.dream_contents = None 
@@ -84,21 +85,14 @@ class Dream:
             'dream_id': self.dream_id,
             'date': self.date,
             'time': self.time,
-        }
-        dream_contents_dict = {
-            'dream_id': self.dream_id,
-            'dream_contents': self.dream_contents
-        }
+            'dream_contents': self.dream_contents}
 
         # Append the dictionaries to the class-level lists
         self.dream_data_list.append(dream_data_dict)
-        self.dream_contents_list.append(dream_contents_dict)
         
         # Store the data in an external file
         with open('dream_data.json', 'w') as file:
             json.dump(self.dream_data_list, file, indent=4)
-        with open('dream_contents.json', 'w') as file:
-            json.dump(self.dream_contents_list, file, indent=4)
 
         print(f"Dream with ID {self.dream_id} has been recorded.")
 
@@ -144,6 +138,9 @@ class Dream:
                 -top_theme
         """
         words = self.dream_contents.split()
+        if not words:
+            raise ValueError("Dream contents were not descriptive enough to run analysis.")
+    
         for term in self.general_terms:
             matches = [word.lower() for word in words if word.lower() == term]
             self.dream_patterns.extend(matches)
@@ -178,7 +175,8 @@ class Dream:
 
         #find top theme and top 3 and assign back to attribute of instance
         self.top_3 = sorted(self.count_theme, key=self.count_theme.get, reverse=True)[:3]
-        self.top_theme = self.top_3[0]#need to allow for instances with less than three
+        
+        self.top_theme = self.top_3[0] if self.top_3 else None
     
     def dream_analysis(self): #MALIK
         """
@@ -218,7 +216,7 @@ class Dream:
             return (f"{intro} Your dream indicates you subconciously long for spirtual insight. It is often associated with a desire for change, or the" 
                     f" end of something. Imagery such as {", ".join(self.dream_patterns)} are most associated with these ideologies.")
 
-
+#instantiate Dream class
 dream_instance = Dream()
 dream_instance.dream_info()
 dream_instance.generalize_dream()
