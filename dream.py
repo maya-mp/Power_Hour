@@ -72,20 +72,20 @@ class Dream:
         self.date = input("Enter the date of the dream (YYYY-MM-DD): ")
         if not re.match(r'\d{4}-\d{2}-\d{2}', self.date):
             raise ValueError("Date is not in the correct format (YYYY-MM-DD).")
-        try:
+        #try:
             # Try to create a datetime object to validate the date
-            datetime.datetime.strptime(self.date, '%Y-%m-%d')
-        except ValueError:
-            raise ValueError("Date is invalid.")
+            #datetime.datetime.strptime(self.date, '%Y-%m-%d')
+        #except ValueError:
+            #raise ValueError("Date is invalid.")
             
         self.time = input("Enter the time you woke up (HH:MM): ")
         if not re.match(r'\d{2}:\d{2}', self.time):
             raise ValueError("Time is not in the correct format (HH:MM).")
-        try:
+        #try:
             # Try to create a time object to validate the time
-            datetime.datetime.strptime(self.time, '%H:%M')
-        except ValueError:
-            raise ValueError("Time is invalid.")
+            #datetime.datetime.strptime(self.time, '%H:%M')
+        #except ValueError:
+            #raise ValueError("Time is invalid.")
             
         self.dream_contents = input("Describe your dream: ")
         if not self.dream_contents:
