@@ -40,9 +40,8 @@ class Dream:
         self.themes_variations = {}
         self.count_word = {}
         self.count_theme = {}
-        self.dream_data_list = []
         self.dream_contents_list = []
-        
+        self.dream_data_list = []
 
     def dream_info(self): #KHOA DO
         """
@@ -168,16 +167,17 @@ class Dream:
                 -top_theme
         """
         words = self.dream_contents.split()
-        try:
-            if not words:
-                raise ValueError("Dream contents are empty.")
-        except ValueError:
-            print("Not enough content for analysis but dream will be logged.")
-            return
     
         for term in self.general_terms:
             matches = [word.lower() for word in words if word.lower() == term]
             self.dream_patterns.extend(matches)
+            
+        try:
+            if not self.dream_patterns:
+                raise ValueError
+        except ValueError:
+            print("No matches found in dream contents for analysis.")
+            return
         
         #shows all variation terms per each theme
         for theme, terms in themes_terms_meanings.items():
@@ -249,6 +249,8 @@ class Dream:
         elif self.top_theme == "spiritual insights": 
             return (f"{intro} Your dream indicates you subconciously long for spirtual insight. It is often associated with a desire for change, or the" 
                     f" end of something. Imagery such as {", ".join(self.dream_patterns)} are most associated with these ideologies.")
+        elif self.top_theme == None:
+            return("There is not enough content for an analysis.")
 
 #instantiate Dream class
 dream_instance = Dream()
@@ -268,7 +270,9 @@ class UpdateGeneralInfo: #MAYA this will be very last class in the code
         self.cont = None 
         
     def theme_update(self):
-        self.run_program = input("Are you trying to update the dream information term list? Enter 'yes' or 'no'.")
+        self.run_program = input("Are you trying to update the dream information term list? Enter 'yes' or 'no'.\n"
+                                 "\n"
+                                 "\n")
         if self.run_program.lower().strip() == "yes":
             pass
         elif self.run_program.lower().strip() == "no":
@@ -311,16 +315,22 @@ class UpdateGeneralInfo: #MAYA this will be very last class in the code
         self.theme_identity = theme_dict[theme_value]
         
         self.key_word = input("Enter the key word:""\n"
-                               "For example:\n"
-                               "skeleton").lower.strip()
+                       "For example:\n"
+                       "skeleton""\n"
+                       "\n"
+                       "\n").lower().strip()
         
         self.variants = [variant.strip() for variant in input("Enter the variations of the key term with commas to separate:\n"
                                                   "For example:\n"
-                                                  "bones, skull, dead body, carcass\n").lower().split(',')]
+                                                  "bones, skull, dead body, carcass\n"
+                                                  "\n"
+                                                  "\n").lower().split(',')]
         
         self.meanings = [meaning.strip() for meaning in input("Enter the dream meanings of the key term with commas to separate:\n"
                                                   "For example:\n"
-                                                  "secrets, subconscious worry, thoughts of death, guilt\n").lower().split(',')]
+                                                  "secrets, subconscious worry, thoughts of death, guilt\n"
+                                                  "\n"
+                                                  "\n").lower().split(',')]
         
         #Finished updating attributes. Now will use to alter the general_info doc.
         
@@ -332,7 +342,8 @@ class UpdateGeneralInfo: #MAYA this will be very last class in the code
         
         print("Term added successfully.")
         
-        self.cont = input("Any other terms to add? Type 'Yes' or 'No': ")
+        self.cont = input("Any other terms to add? Type 'yes' or 'no': \n"
+                          "\n")
         if self.cont.lower().strip() == "yes":
             self.theme_update()
         elif self.cont.lower().strip() == "no":
