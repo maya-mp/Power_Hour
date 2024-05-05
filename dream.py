@@ -68,42 +68,31 @@ class Dream:
         Raises:
             ValueError: If any of the inputs do not conform to their expected format.
         """
-         # Ask for user input and validate it
-        self.date = input("Enter the date of the dream (YYYY-MM-DD): ")
-        date_parts = self.date.split('-')
+  # Ask user to input and validate the date with a loop
+        while True:
+            self.date = input("Enter the date of the dream (YYYY-MM-DD): ")
+            if not re.match(r'\d{4}-\d{2}-\d{2}', self.date):
+                print("Date is not in the correct format (YYYY-MM-DD). Please try again.")
+                continue
+            try:
+                # Try to create a datetime object to validate the date
+                datetime.datetime.strptime(self.date, '%Y-%m-%d')
+                break  # Exit the loop if the date is valid
+            except ValueError:
+                print("Date is invalid. Please enter a valid date.")
 
-        if len(date_parts) != 3 or any(not part.isdigit() for part in date_parts):
-            raise ValueError("Date is not in the correct format (YYYY-MM-DD).")
-
-        year, month, day = map(int, date_parts)
-        if not (1 <= month <= 12):
-            raise ValueError("Month is invalid.")
-
-        # Determine the number of days in the given month and year
-        if month in (1, 3, 5, 7, 8, 10, 12):
-            max_day = 31
-        elif month in (4, 6, 9, 11):
-            max_day = 30
-        elif month == 2:
-            if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
-                max_day = 29  # Leap year
-            else:
-                max_day = 28
-        else:
-            raise ValueError("Month is invalid.")  
-
-        if not (1 <= day <= max_day):
-           raise ValueError("Day is invalid for the given month and year.")
-
-            
-        self.time = input("Enter the time you woke up (HH:MM): ")
-        if not re.match(r'\d{2}:\d{2}', self.time):
-            raise ValueError("Time is not in the correct format (HH:MM).")
-        try:
-             #Try to create a time object to validate the time
-            datetime.datetime.strptime(self.time, '%H:%M')
-        except ValueError:
-            raise ValueError("Time is invalid.")
+        # Validate the time with a loop
+        while True:
+            self.time = input("Enter the time you woke up (HH:MM): ")
+            if not re.match(r'\d{2}:\d{2}', self.time):
+                print("Time is not in the correct format (HH:MM). Please try again.")
+                continue
+            try:
+                # Try to create a time object to validate the time
+                datetime.datetime.strptime(self.time, '%H:%M')
+                break  # Exit the loop if the time is valid
+            except ValueError:
+                print("Time is invalid. Please enter a valid time.")
             
         self.dream_contents = input("Describe your dream: ")
         if not self.dream_contents:
