@@ -101,32 +101,6 @@
                 "hidden threats",
                 "complex issues"
             ]
-        },
-        {
-            "term": "bug",
-            "variations": [
-                "ladybug",
-                "stinkbug",
-                "critter",
-                "insect"
-            ],
-            "meanings": [
-                "dirtiness",
-                "feeling watched"
-            ]
-        },
-        {
-            "term": "needles",
-            "variations": [
-                "shot",
-                "vein",
-                "injection",
-                "blood"
-            ],
-            "meanings": [
-                "fear of veins",
-                "worries of health"
-            ]
         }
     ],
     "transitions and changes": [
@@ -364,6 +338,17 @@
             "meanings": [
                 "fears",
                 "repressed emotions"
+            ]
+        },
+        {
+            "term": "heights",
+            "variations": [
+                "high",
+                "above"
+            ],
+            "meanings": [
+                "being watched",
+                "unease"
             ]
         }
     ],

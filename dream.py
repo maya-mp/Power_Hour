@@ -1,7 +1,7 @@
 import json
 import re
 import sys
-import datetime #Khoa double check that we can actually use this please
+import datetime 
 from general_info import themes_terms_meanings 
 
 class Dream:
@@ -270,7 +270,8 @@ class UpdateGeneralInfo: #MAYA this will be very last class in the code
         self.cont = None 
         
     def theme_update(self):
-        self.run_program = input("Are you trying to update the dream information term list? Enter 'yes' or 'no'.\n"
+        self.run_program = input("\n"
+            "Are you trying to update the dream information term list? Enter 'yes' or 'no'.\n"
                                  "\n"
                                  "\n")
         if self.run_program.lower().strip() == "yes":
@@ -301,7 +302,8 @@ class UpdateGeneralInfo: #MAYA this will be very last class in the code
                         '5: Relationships\n'
                         '6: Reflection\n'
                         '7: Fears\n'
-                        '8: Spiritual insights\n')
+                        '8: Spiritual insights\n'
+                        '\n')
         
             try:
                 theme_value = int(theme_value)
@@ -337,7 +339,8 @@ class UpdateGeneralInfo: #MAYA this will be very last class in the code
         new_term = {"term": self.key_word, "variations": self.variants, "meanings": self.meanings}
         themes_terms_meanings[self.theme_identity].append(new_term)
         
-        with open('general_info.json', 'w') as file:
+        #makes new json file instead of updating general_info.py NEED TO FIX
+        with open('general_info.py', 'w') as file:
             json.dump(themes_terms_meanings, file, indent=4)
         
         print("Term added successfully.")
