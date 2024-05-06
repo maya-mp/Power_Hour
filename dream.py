@@ -158,7 +158,7 @@ class Dream:
 
         return self.general_terms, self.theme_terms
 
-     def set_dream_mode(self):
+    def set_dream_mode(self):
         while True:
             mode = input("Do you want to input a new dream or read a previous one? (input/read): ").lower().strip()
             if mode == "input":
