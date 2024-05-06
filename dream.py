@@ -330,7 +330,7 @@ dream_instance.generalize_dream()
 analysis = dream_instance.dream_analysis()
 print(analysis)
 
-def plot_most_repeated_dreams(json_file):
+def plot_most_repeated_dreams(json_file): # Khoa Do this will show the frequency of your repeated dream
     # Load the JSON data into a DataFrame
     df = pd.read_json(json_file)
 
