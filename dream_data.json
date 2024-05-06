@@ -1,3 +1,37 @@
 [
-    
+    {
+        "dream_id": 1,
+        "date": "2024-05-01",
+        "time": "20:12",
+        "dream_contents": "I was being chased and flying in space in the dark when suddenly I landed on the moon. I then was engulfed in the dark as the sun went dim. I was really scared. ",
+        "top_theme": "positive emotional states"
+    },
+    {
+        "dream_id": 2,
+        "date": "2024-05-02",
+        "time": "03:25",
+        "dream_contents": "I was climbing a high mountain when I was traveling. At the top there were hikers who invited me to a big meal as a celebration. The food was very yummy. ",
+        "top_theme": "needs and wants"
+    },
+    {
+        "dream_id": 3,
+        "date": "2024-05-03",
+        "time": "12:14",
+        "dream_contents": "I started my dream looking at a mirror. I was wearing a strange mask with feathers. I turned on the shower and no water came out. I woke up very confused.",
+        "top_theme": "positive emotional states"
+    },
+    {
+        "dream_id": 4,
+        "date": "2024-05-04",
+        "time": "02:56",
+        "dream_contents": "I don't remember much, but I remember driving on a road for a long time. The road came to an end and I got out of the car. Below me was a massive river with lots of water flowing. It was magnificent. ",
+        "top_theme": "transitions and changes"
+    },
+    {
+        "dream_id": 5,
+        "date": "2024-05-05",
+        "time": "08:30",
+        "dream_contents": "I ate a huge meal at a wedding celebration. The bride and groom very very happy and it was a fun dream.",
+        "top_theme": "needs and wants"
+    }
 ]

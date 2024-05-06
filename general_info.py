@@ -418,6 +418,17 @@
                     "thoughts of death",
                     "guilt"
                 ]
+            },
+            {
+                "term": "ghost",
+                "variations": [
+                    "ghost",
+                    "spirit"
+                ],
+                "meanings": [
+                    "fear of the supernatural",
+                    "passing of a loved one"
+                ]
             }
         ]
     }
