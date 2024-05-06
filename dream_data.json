@@ -33,5 +33,19 @@
         "time": "08:30",
         "dream_contents": "I ate a huge meal at a wedding celebration. The bride and groom very very happy and it was a fun dream.",
         "top_theme": "needs and wants"
+    },
+    {
+        "dream_id": 6,
+        "date": "2024-05-06",
+        "time": "11:00",
+        "dream_contents": "I was being chased by a giant snake in the dark.",
+        "top_theme": "stress and anxiety"
+    },
+    {
+        "dream_id": 7,
+        "date": "2024-05-07",
+        "time": "06:23",
+        "dream_contents": "I skeleton and ghost were throwing a celebration with lots of food. They were very nice!",
+        "top_theme": "positive emotional states"
     }
 ]

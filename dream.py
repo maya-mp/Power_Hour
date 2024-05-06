@@ -328,15 +328,15 @@ def plot_most_repeated_dreams(json_file): # Khoa Do this will show the frequency
     plt.figure(figsize=(12, 8))
 
     # Showing only the top 10 (if the dataset is large)
-    top_dreams = df['dream_contents'].value_counts().head(10)
+    top_dreams = df['top_theme'].value_counts().head(10)
 
     # Create a bar plot for the most common dream contents
     sns.barplot(x=top_dreams.values, y=top_dreams.index, hue=top_dreams.index, palette='coolwarm')
 
     # Add titles and labels
-    plt.title('Most Repeated Dream Contents')
+    plt.title('Most Repeated Dream Themes')
     plt.xlabel('Frequency')
-    plt.ylabel('Dream Contents')
+    plt.ylabel('Themes')
 
     # Disable the legend
     plt.legend([], frameon=False)
@@ -360,7 +360,8 @@ class UpdateGeneralInfo:  # MAYA this will be very last class in the code
         self.cont = None
 
     def theme_update(self):
-        self.run_program = input("Are you trying to update the dream information term list? Enter 'yes' or 'no'.\n"
+        self.run_program = input("\n"
+        "Are you trying to update the dream information term list? Enter 'yes' or 'no'.\n"
                                  "\n"
                                  "\n")
         if self.run_program.lower().strip() == "yes":
