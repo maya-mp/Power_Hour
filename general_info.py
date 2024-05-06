@@ -113,6 +113,21 @@
                     "pressure to succeed",
                     "focus on the thoughts of others"
                 ]
+            },
+            {
+                "term": "skeleton",
+                "variations": [
+                    "bones",
+                    "skull",
+                    "dead body",
+                    "carcass"
+                ],
+                "meanings": [
+                    "secrets",
+                    "subconscious worry",
+                    "thoughts of death",
+                    "guilt"
+                ]
             }
         ],
         "transitions and changes": [
