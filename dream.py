@@ -2,11 +2,14 @@ import json
 import re
 import sys
 import datetime 
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 from general_info import themes_terms_meanings 
 
 class Dream:
     dream_counter = 0  
-    
+    dream_data_list = []
     def __init__(self): #EVERYONE
         """
         Initializes Dream class.
@@ -26,6 +29,17 @@ class Dream:
         -dream_symbols: (dict) contains master container of general dream
                         symbols
         """
+        
+        # Load existing dream data if available
+        try:
+            with open('dream_data.json', 'r') as file:
+                Dream.dream_data_list = json.load(file)
+                if Dream.dream_data_list:
+                    Dream.dream_counter = Dream.dream_data_list[-1]['dream_id']
+        except FileNotFoundError:
+            # File doesn't exist, will be created on the first dream entry
+            Dream.dream_data_list = []
+            
         #FIX DREAM ID ISSUE
         self.dream_id = Dream.dream_counter + 1
         self.date = None 
@@ -302,6 +316,36 @@ dream_instance.find_dream_theme()
 analysis = dream_instance.dream_analysis()
 print(analysis)
 
+def plot_most_repeated_dreams(json_file):
+    # Load the JSON data into a DataFrame
+    df = pd.read_json(json_file)
+
+    # Prepare the figure for plotting
+    plt.figure(figsize=(12, 8))
+
+    # Showing only the top 10 (if the dataset is large)
+    top_dreams = df['dream_contents'].value_counts().head(10)
+
+    # Create a bar plot for the most common dream contents
+    sns.barplot(x=top_dreams.values, y=top_dreams.index, hue=top_dreams.index, palette='coolwarm')
+
+    # Add titles and labels
+    plt.title('Most Repeated Dream Contents')
+    plt.xlabel('Frequency')
+    plt.ylabel('Dream Contents')
+
+    # Disable the legend
+    plt.legend([], frameon=False)
+
+    # Improve layout
+    plt.tight_layout()
+
+    # Show the plot
+    plt.show()
+
+
+# Call the function with the path to the JSON file
+plot_most_repeated_dreams('dream_data.json')
 class UpdateGeneralInfo: #MAYA this will be very last class in the code
     def __init__(self):
         self.run_program = None
