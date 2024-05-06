@@ -164,7 +164,8 @@ class Dream:
             self.theme_terms[theme_name] = terms
         
         return self.general_terms, self.theme_terms
-          def set_dream_mode(self):
+
+    def set_dream_mode(self):
         while True:
             mode = input("Do you want to input a new dream or read a previous one? (input/read): ").lower().strip()
             if mode == "input":
@@ -176,10 +177,10 @@ class Dream:
             else:
                 print("Invalid choice. Please enter 'input' or 'read'.")
 
-        if self.dream_mode == "input":
-            self.dream_info()  # If the mode is 'input', proceed to input a new dream
-        elif self.dream_mode == "read":
-            self.read_previous_dream()  # If the mode is 'read', proceed to read previous dreams
+            if self.dream_mode == "input":
+                self.dream_info()  # If the mode is 'input', proceed to input a new dream
+            elif self.dream_mode == "read":
+                self.read_previous_dream()  # If the mode is 'read', proceed to read previous dreams
 
     def read_previous_dream(self):
         """
