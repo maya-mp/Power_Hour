@@ -330,7 +330,36 @@ dream_instance.generalize_dream()
 analysis = dream_instance.dream_analysis()
 print(analysis)
 
+def plot_most_repeated_dreams(json_file):
+    # Load the JSON data into a DataFrame
+    df = pd.read_json(json_file)
 
+    # Prepare the figure for plotting
+    plt.figure(figsize=(12, 8))
+
+    # Showing only the top 10 (if the dataset is large)
+    top_dreams = df['dream_contents'].value_counts().head(10)
+
+    # Create a bar plot for the most common dream contents
+    sns.barplot(x=top_dreams.values, y=top_dreams.index, hue=top_dreams.index, palette='coolwarm')
+
+    # Add titles and labels
+    plt.title('Most Repeated Dream Contents')
+    plt.xlabel('Frequency')
+    plt.ylabel('Dream Contents')
+
+    # Disable the legend
+    plt.legend([], frameon=False)
+
+    # Improve layout
+    plt.tight_layout()
+
+    # Show the plot
+    plt.show()
+
+
+# Call the function with the path to the JSON file
+plot_most_repeated_dreams('dream_data.json')
 class UpdateGeneralInfo:  # MAYA this will be very last class in the code
     def __init__(self):
         self.run_program = None
