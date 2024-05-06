@@ -6,6 +6,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+#update the list of dicts directly while still calling from it
 with open('general_info.py', 'r') as file:
     themes_terms_meanings = json.load(file)['themes_terms_meanings'] 
 
