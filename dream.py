@@ -42,6 +42,8 @@ class Dream:
         self.count_theme = {}
         self.dream_contents_list = []
         self.dream_data_list = []
+        self.dream_mode = None
+        self.set_dream_mode()
 
     def dream_info(self): #KHOA DO
         """
@@ -148,6 +150,46 @@ class Dream:
             self.theme_terms[theme_name] = terms
         
         return self.general_terms, self.theme_terms
+          def set_dream_mode(self):
+        while True:
+            mode = input("Do you want to input a new dream or read a previous one? (input/read): ").lower().strip()
+            if mode == "input":
+                self.dream_mode = "input"
+                break
+            elif mode == "read":
+                self.dream_mode = "read"
+                break
+            else:
+                print("Invalid choice. Please enter 'input' or 'read'.")
+
+        if self.dream_mode == "input":
+            self.dream_info()  # If the mode is 'input', proceed to input a new dream
+        elif self.dream_mode == "read":
+            self.read_previous_dream()  # If the mode is 'read', proceed to read previous dreams
+
+    def read_previous_dream(self):
+        """
+        Read and display previous dreams stored in the dream_data_list.
+        """
+        if not self.dream_data_list:
+            print("No previous dreams found.")
+            return
+
+        print("Previous Dreams:")
+        for dream in self.dream_data_list:
+            print(f"Dream ID: {dream['dream_id']}, Date: {dream['date']}, Time: {dream['time']}")
+        
+        dream_id = input("Enter the ID of the dream you want to read: ")
+        found_dream = False
+        for dream in self.dream_data_list:
+            if str(dream['dream_id']) == dream_id:
+                print("Dream Contents:")
+                print(dream['dream_contents'])
+                found_dream = True
+                break
+            
+        if not found_dream:
+            print("Dream not found.")
 
     def find_dream_theme(self): #MAYA
         """
