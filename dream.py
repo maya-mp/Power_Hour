@@ -1,13 +1,3 @@
-#SAMPLE DREAM FOR PRESENTATION
-"""
-I started my dream getting out of bed at 3am, a particulary spooky time. 
-I went to the faucet and as I splashed my face with water and looked up, 
-I saw the spirit of a ghost staring back at me. I did not recognize the spirit
-and was frozen with fear. The ghost slowly started turning into a skeleton in a
-horrific sight. I woke up too afraid to get out of bed. It was the worst nightmare
-I have had in a while.
-"""
-
 import json
 import re
 import sys
