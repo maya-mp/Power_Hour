@@ -5,7 +5,9 @@ import datetime
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from general_info import themes_terms_meanings 
+
+with open('general_info.py', 'r') as file:
+    themes_terms_meanings = json.load(file)['themes_terms_meanings']
 
 class Dream:
     dream_counter = 0  
@@ -426,10 +428,12 @@ class UpdateGeneralInfo: #MAYA this will be very last class in the code
         new_term = {"term": self.key_word, "variations": self.variants, "meanings": self.meanings}
         themes_terms_meanings[self.theme_identity].append(new_term)
         
-        #updates general_info.py
-        with open('general_info.py', 'w') as file:
-            json.dump(themes_terms_meanings, file, indent=4)
+        data_to_dump = {"themes_terms_meanings": themes_terms_meanings}
         
+        # Update general_info.py
+        with open('general_info.py', 'w') as file:
+            json.dump(data_to_dump, file, indent=4)
+            
         print("Term added successfully.")
         
         self.cont = input("Any other terms to add? Type 'yes' or 'no': \n"
