@@ -11,6 +11,9 @@ with open('general_info.py', 'r') as file:
     themes_terms_meanings = json.load(file)['themes_terms_meanings'] 
     
 def theme_update():
+    """
+    NEED DOCSTRING MAYA
+    """
     run_program = input("\n"
     "Are you trying to update the dream information term list? Enter 'yes' or 'no'.\n"
                                  "\n"
@@ -96,6 +99,9 @@ def theme_update():
         theme_update()
 
 def plot_most_repeated_dreams(json_file): 
+    """
+    KHOA WRITE DOCSTRING
+    """
     # Load the JSON data into a DataFrame
     df = pd.read_json(json_file)
 
@@ -124,9 +130,15 @@ def plot_most_repeated_dreams(json_file):
 
 #MALIK YOUR PART HERE
 def dream_pandas():
+    """
+    NEED DOCSTRING MALIK
+    """
     raise NotImplementedError
 
 class Dream:
+    """
+    NEED TO WRITE CLASS DOCSTRING - MAYA
+    """
     dream_counter = 0
     dream_data_list = []
 
@@ -146,10 +158,15 @@ class Dream:
         -top_3 (list): list of the top three dream themes in order of most
                         overlap to least
         -top_theme (str): the top theme based on overlap
-        -theme_terms
-        -general_terms
-        -themes_variations
-        -count_word
+        -theme_terms  STINA
+        -general_terms  STINA
+        -themes_variations  STINA
+        -count_word    MAYA
+        -count_theme   MAYA
+        -dream_contents_list  KHOA
+        -dream_data_list   KHOA
+        -dream_mode  STINA
+        -set_dream_mode()  STINA
         """
         # Load existing dream data if available
         try:
@@ -175,7 +192,6 @@ class Dream:
         self.count_theme = {}
         self.dream_contents_list = []
         self.dream_data_list = []
-        self.dream_mode = None
         self.dream_mode = None
         self.set_dream_mode()
 
@@ -277,6 +293,9 @@ class Dream:
         return self.general_terms, self.theme_terms
 
     def set_dream_mode(self):
+        """
+        NEED DOCSTRING STINA
+        """
         while True:
             mode = input("Do you want to:\n"
                          "input a new dream\n"
@@ -307,6 +326,9 @@ class Dream:
                 print("Invalid choice. Please enter 'input','read', or 'exit'.")
 
     def read_previous_dream(self):
+        """
+        NEED DOCSTRING STINA
+        """
         with open('dream_data.json', 'r') as file:
             dream_data_list = json.load(file)
 
