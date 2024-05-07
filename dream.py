@@ -167,6 +167,7 @@ class Dream:
         -dream_data_list   KHOA
         -dream_mode  STINA
         -set_dream_mode()  STINA
+        -meanings MAYA
         """
         # Load existing dream data if available
         try:
@@ -301,13 +302,14 @@ class Dream:
                          "input a new dream\n"
                          "read a previous one\n"
                          "update the terms\n"
-                         "plot theme data for all dreams"
-                         "get a dataframe of dreams (df)"
+                         "plot theme data for all dreams\n"
+                         "get a dataframe of dreams (df)\n"
                          "exit the program\n"
                          "\n"
                          "enter:(input/read/update/plot/df/exit): ").lower().strip()
             if mode == "input":
                 self.dream_info()  
+                self.dream_analysis()
                 break
             elif mode == "read":
                 self.read_previous_dream() 
@@ -323,7 +325,7 @@ class Dream:
             elif mode == "df":
                 dream_pandas()
             else:
-                print("Invalid choice. Please enter 'input','read', or 'exit'.")
+                print("Invalid choice.")
 
     def read_previous_dream(self):
         """
@@ -399,7 +401,7 @@ class Dream:
                     if word in term_data["variations"]:
                         term = term_data["term"]
                         self.term_overlap[term] = self.term_overlap.get(term, 0) + occurrence
-
+       
         # finds the amount of times a variation/term of a certain theme
         for word in self.dream_patterns:
             for theme, theme_variations in self.themes_variations.items():
@@ -425,68 +427,52 @@ class Dream:
         intro = f"Your top themes were {', '.join(self.top_3)}. Among those your most prevelant theme was {self.top_theme}."
 
         if self.top_theme == "stress and anxiety":
-            return (
+            print(
                 f"{intro} Your dream indicates you are feeling high levels of stress and anxiety. Imagery such as {', '.join(self.dream_patterns)} are often "
-                f"associated with high stress levels increased anxiety."
-                "\n"
-                "Here are the dream patterns that occured and their meanings:\n")
-               
+                f"associated with high stress levels increased anxiety.")
+
         elif self.top_theme == "transitions and changes":
-            return (
+            print(
                 f"{intro} Your dream indicates you are in a period of transitions and change. Imagery such as {', '.join(self.dream_patterns)} are often "
-                f"associated with high stress levels."
-                "\n"
-                "Here are the dream patterns that occured and their meanings:\n")
+                f"associated with high stress levels.")
                
         elif self.top_theme == "positive emotional states.":
-            return (
+            print(
                 f"{intro} Your dream indicates you are in a positive emotional state currently in your life. Imagery such as {', '.join(self.dream_patterns)} are"
-                f"often associated with positive emotional states."
-                "\n"
-                "Here are the dream patterns that occured and their meanings:\n")
+                f"often associated with positive emotional states.")
               
         elif self.top_theme == "needs and wants":
-            return (
+            print(
                 f"{intro} Your dream indicates you are currently in need of something or have a strong desire for something specific."
-                f" Imagery such as {', '.join(self.dream_patterns)} are often associated with a subconcious desire for something."
-                "\n"
-                "Here are the dream patterns that occured and their meanings:\n")
+                f" Imagery such as {', '.join(self.dream_patterns)} are often associated with a subconcious desire for something.")
              
         elif self.top_theme == "relationships":
-            return (
+            print(
                 f"{intro} Your dream indicates you are currently focused on relationships, and it is weighing heavily on your mind."
-                f" Imagery such as {', '.join(self.dream_patterns)} are often associated with your subconcious thoughts about a relationship in your life."
-                "\n"
-                "Here are the dream patterns that occured and their meanings:\n")
+                f" Imagery such as {', '.join(self.dream_patterns)} are often associated with your subconcious thoughts about a relationship in your life.")
             
         elif self.top_theme == "reflection":
-            return (
+            print(
                 f"{intro} Your dream indicates you are currently in a deep state subconcious state of reflection, Imagery such as {self.dream_patterns} are"
-                f" often associated with a deep mental state of reflection."
-                "\n"
-                "Here are the dream patterns that occured and their meanings:\n")
+                f" often associated with a deep mental state of reflection.")
            
         elif self.top_theme == "fears":
-            return (
+            print(
                 f"{intro} Your dream indicates you have been thinking critically about fear, and is currently a large part of your subconcious."
-                f" Imagery such as {', '.join(self.dream_patterns)} are often associated with a high subconcious level of fear."
-                "\n"
-                "Here are the dream patterns that occured and their meanings:\n")
+                f" Imagery such as {', '.join(self.dream_patterns)} are often associated with a high subconcious level of fear.")
             
         elif self.top_theme == "spiritual insights":
-            return (
+            print(
                 f"{intro} Your dream indicates you subconciously long for spirtual insight. It is often associated with a desire for change, or the"
-                f" end of something. Imagery such as {', '.join(self.dream_patterns)} are most associated with these ideologies."
-                "\n"
-                "Here are the dream patterns that occured and their meanings:\n")
+                f" end of something. Imagery such as {', '.join(self.dream_patterns)} are most associated with these ideologies.")
            
         elif self.top_theme == None:
-            return ("There is not enough content for an analysis.")
+            print("There is not enough content for an analysis.")
 
 if __name__ == "__main__":
     dream_instance = Dream()
-    dream_instance.dream_info()
-    dream_instance.generalize_dream()
-    analysis = dream_instance.dream_analysis()
-    print(analysis)
-    dream_instance.set_dream_mode()
+    dream_instance.dream_info()  # Collect dream information
+    dream_instance.dream_analysis()  # Analyze the dream
+    dream_instance.set_dream_mode()  # Provide options for next steps
+
+
