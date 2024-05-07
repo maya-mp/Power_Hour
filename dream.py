@@ -40,7 +40,6 @@ class Dream:
                 if Dream.dream_data_list:
                     Dream.dream_counter = Dream.dream_data_list[-1]['dream_id']
         except FileNotFoundError:
-            # File doesn't exist, will be created on the first dream entry
             Dream.dream_data_list = []
 
         self.dream_id = Dream.dream_counter + 1
@@ -161,7 +160,7 @@ class Dream:
 
     def set_dream_mode(self):
         while True:
-            mode = input("Do you want to input a new dream or read a previous one? (input/read): ").lower().strip()
+            mode = input("Do you want to input a new dream or read a previous one? You can also exit. (input/read/exit): ").lower().strip()
             if mode == "input":
                 self.dream_mode = "input"
                 self.dream_info()  
@@ -170,8 +169,11 @@ class Dream:
                 self.dream_mode = "read"
                 self.read_previous_dream() 
                 break
+            elif mode == "exit":
+                print("Goodbye!")
+                sys.exit()
             else:
-                print("Invalid choice. Please enter 'input' or 'read'.")
+                print("Invalid choice. Please enter 'input','read', or 'exit'.")
 
 
     def read_previous_dream(self):
@@ -358,10 +360,10 @@ def plot_most_repeated_dreams(json_file): # Khoa Do this will show the frequency
     plt.xlabel('Frequency')
     plt.ylabel('Themes')
 
-    # Disable the legend, method used to add a legend to the plot from matplotlib,[] that no labels are provided for legend entries, make it empty
+    # Disable the legend
     plt.legend([], frameon=False)
 
-    # Improve layout,This method adjusts the positions of the plot elements so that everything fits well within the plot aree.
+    # Improve layout
     plt.tight_layout()
 
     # Show the plot
@@ -470,7 +472,6 @@ class UpdateGeneralInfo:  # MAYA this will be very last class in the code
             self.theme_update()
 
         # Start the updating process for general_info
-
 
 updater = UpdateGeneralInfo()
 updater.theme_update()
