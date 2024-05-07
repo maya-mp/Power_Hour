@@ -358,10 +358,10 @@ def plot_most_repeated_dreams(json_file): # Khoa Do this will show the frequency
     plt.xlabel('Frequency')
     plt.ylabel('Themes')
 
-    # Disable the legend
+    # Disable the legend, method used to add a legend to the plot from matplotlib,[] that no labels are provided for legend entries, make it empty
     plt.legend([], frameon=False)
 
-    # Improve layout
+    # Improve layout,This method adjusts the positions of the plot elements so that everything fits well within the plot aree.
     plt.tight_layout()
 
     # Show the plot
