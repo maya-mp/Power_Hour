@@ -9,6 +9,120 @@ import matplotlib.pyplot as plt
 #update the list of dicts directly while still calling from it
 with open('general_info.py', 'r') as file:
     themes_terms_meanings = json.load(file)['themes_terms_meanings'] 
+    
+def theme_update():
+    run_program = input("\n"
+    "Are you trying to update the dream information term list? Enter 'yes' or 'no'.\n"
+                                 "\n"
+                                 "\n")
+    if run_program.lower().strip() == "yes":
+        pass
+    elif run_program.lower().strip() == "no":
+        print("Goodbye!")
+        sys.exit()
+    else:
+        print("Invalid input. Please enter 'yes' or 'no'.")
+        return
+
+    theme_dict = {
+            1: "stress and anxiety",
+            2: "transitions and changes",
+            3: "positive emotional states",
+            4: "needs and wants",
+            5: "relationships",
+            6: "reflection",
+            7: "fears",
+            8: "spiritual insights"}
+
+    theme_value = input('Enter the number corresponding to the theme of your term:\n'
+                                '1: Stress and anxiety\n'
+                                '2: Transitions and changes\n'
+                                '3: Positive emotional states\n'
+                                '4: Needs and wants\n'
+                                '5: Relationships\n'
+                                '6: Reflection\n'
+                                '7: Fears\n'
+                                '8: Spiritual insights\n')
+
+    try:
+        theme_value = int(theme_value)  
+        if theme_value not in theme_dict:  
+            raise ValueError("Invalid number.")  
+    except ValueError:  
+        print("Invalid input. Please enter a number between 1 and 8.")  
+
+    theme_identity = theme_dict[theme_value]
+
+    key_word = input("Enter the key word:""\n"
+                              "For example:\n"
+                              "skeleton""\n"
+                              "\n"
+                              "\n").lower().strip()
+
+    variants = [variant.strip() for variant in 
+                input("Enter the variations of the key term with commas to separate:\n"
+                               "For example:\n"
+                               "bones, skull, dead body, carcass\n"
+                               "\n"
+                               "\n").lower().split(',')]
+
+    meanings = [meaning.strip() for meaning in
+                         input("Enter the dream meanings of the key term with commas to separate:\n"
+                               "For example:\n"
+                               "secrets, subconscious worry, thoughts of death, guilt\n"
+                               "\n"
+                               "\n").lower().split(',')]
+
+        # Finished updating attributes. Now will use to alter the general_info doc.
+
+    new_term = {"term": key_word, "variations": variants, "meanings": meanings}
+    themes_terms_meanings[theme_identity].append(new_term)
+        
+    data_to_dump = {"themes_terms_meanings": themes_terms_meanings}
+
+    # updates general_info.py
+    with open('general_info.py', 'w') as file:
+        json.dump(data_to_dump, file, indent=4)
+
+    print("Term added successfully.")
+
+    cont = input("Any other terms to add? Type 'yes' or 'no': \n"
+                          "\n")
+    if cont.lower().strip() == "yes":
+        theme_update()
+    elif cont.lower().strip() == "no":
+        print("Goodbye!")
+        sys.exit()
+    else:
+        print("Invalid input. Please enter 'yes' or 'no'.")
+        theme_update()
+
+def plot_most_repeated_dreams(json_file): # Khoa Do this will show the frequency of your repeated dream
+    # Load the JSON data into a DataFrame
+    df = pd.read_json(json_file)
+
+    # Prepare the figure for plotting
+    plt.figure(figsize=(12, 8))
+
+    # Showing only the top 10 (if the dataset is large)
+    top_dreams = df['top_theme'].value_counts().head(10)
+
+    # Create a bar plot for the most common dream contents
+    sns.barplot(x=top_dreams.values, y=top_dreams.index, hue=top_dreams.index, palette='coolwarm')
+
+    # Add titles and labels
+    plt.title('Most Repeated Dream Themes')
+    plt.xlabel('Frequency')
+    plt.ylabel('Themes')
+
+    # Disable the legend
+    plt.legend([], frameon=False)
+
+    # Improve layout
+    plt.tight_layout()
+
+    # Show the plot
+    plt.show()
 
 class Dream:
     dream_counter = 0
@@ -160,18 +274,28 @@ class Dream:
 
     def set_dream_mode(self):
         while True:
-            mode = input("Do you want to input a new dream or read a previous one? You can also exit. (input/read/exit): ").lower().strip()
+            mode = input("Do you want to:\n"
+                         "input a new dream\n"
+                         "read a previous one\n"
+                         "update the terms\n"
+                         "plot theme data for all dreams"
+                         "exit the program\n"
+                         "\n"
+                         "enter:(input/read/update/plot/exit): ").lower().strip()
             if mode == "input":
-                self.dream_mode = "input"
                 self.dream_info()  
                 break
             elif mode == "read":
-                self.dream_mode = "read"
                 self.read_previous_dream() 
+                break
+            elif mode == "update":
+                theme_update()
                 break
             elif mode == "exit":
                 print("Goodbye!")
                 sys.exit()
+            elif mode == "plot":
+                plot_most_repeated_dreams('dream_data.json')
             else:
                 print("Invalid choice. Please enter 'input','read', or 'exit'.")
 
@@ -331,147 +455,10 @@ class Dream:
         elif self.top_theme == None:
             return ("There is not enough content for an analysis.")
 
-
-# instantiate Dream class
-dream_instance = Dream()
-dream_instance.dream_info()
-dream_instance.generalize_dream()
-analysis = dream_instance.dream_analysis()
-print(analysis)
-
-dream_instance.set_dream_mode()
-dream_instance.read_previous_dream()
-
-def plot_most_repeated_dreams(json_file): # Khoa Do this will show the frequency of your repeated dream
-    # Load the JSON data into a DataFrame
-    df = pd.read_json(json_file)
-
-    # Prepare the figure for plotting
-    plt.figure(figsize=(12, 8))
-
-    # Showing only the top 10 (if the dataset is large)
-    top_dreams = df['top_theme'].value_counts().head(10)
-
-    # Create a bar plot for the most common dream contents
-    sns.barplot(x=top_dreams.values, y=top_dreams.index, hue=top_dreams.index, palette='coolwarm')
-
-    # Add titles and labels
-    plt.title('Most Repeated Dream Themes')
-    plt.xlabel('Frequency')
-    plt.ylabel('Themes')
-
-    # Disable the legend
-    plt.legend([], frameon=False)
-
-    # Improve layout
-    plt.tight_layout()
-
-    # Show the plot
-    plt.show()
-
-# Call the function with the path to the JSON file
-plot_most_repeated_dreams('dream_data.json')
-
-class UpdateGeneralInfo:  # MAYA this will be very last class in the code
-    def __init__(self):
-        self.run_program = None
-        self.theme_identity = None
-        self.key_word = None
-        self.variants = []
-        self.meanings = []
-        self.cont = None
-
-    def theme_update(self):
-        self.run_program = input("\n"
-        "Are you trying to update the dream information term list? Enter 'yes' or 'no'.\n"
-                                 "\n"
-                                 "\n")
-        if self.run_program.lower().strip() == "yes":
-            pass
-        elif self.run_program.lower().strip() == "no":
-            print("Goodbye!")
-            sys.exit()
-        else:
-            print("Invalid input. Please enter 'yes' or 'no'.")
-            return
-
-        theme_dict = {
-            1: "stress and anxiety",
-            2: "transitions and changes",
-            3: "positive emotional states",
-            4: "needs and wants",
-            5: "relationships",
-            6: "reflection",
-            7: "fears",
-            8: "spiritual insights"}
-
-        while True:
-            theme_value = input('Enter the number corresponding to the theme of your term:\n'
-                                '1: Stress and anxiety\n'
-                                '2: Transitions and changes\n'
-                                '3: Positive emotional states\n'
-                                '4: Needs and wants\n'
-                                '5: Relationships\n'
-                                '6: Reflection\n'
-                                '7: Fears\n'
-                                '8: Spiritual insights\n')
-
-            try:
-                theme_value = int(theme_value)
-                if theme_value not in theme_dict:
-                    raise ValueError("Invalid number.")
-                else:
-                    break
-            except ValueError:
-                print("Invalid input. Please enter a number between 1 and 8.")
-
-        self.theme_identity = theme_dict[theme_value]
-
-        self.key_word = input("Enter the key word:""\n"
-                              "For example:\n"
-                              "skeleton""\n"
-                              "\n"
-                              "\n").lower().strip()
-
-        self.variants = [variant.strip() for variant in
-                         input("Enter the variations of the key term with commas to separate:\n"
-                               "For example:\n"
-                               "bones, skull, dead body, carcass\n"
-                               "\n"
-                               "\n").lower().split(',')]
-
-        self.meanings = [meaning.strip() for meaning in
-                         input("Enter the dream meanings of the key term with commas to separate:\n"
-                               "For example:\n"
-                               "secrets, subconscious worry, thoughts of death, guilt\n"
-                               "\n"
-                               "\n").lower().split(',')]
-
-        # Finished updating attributes. Now will use to alter the general_info doc.
-
-        new_term = {"term": self.key_word, "variations": self.variants, "meanings": self.meanings}
-        themes_terms_meanings[self.theme_identity].append(new_term)
-        
-        data_to_dump = {"themes_terms_meanings": themes_terms_meanings}
-
-        # updates general_info.py
-        with open('general_info.py', 'w') as file:
-            json.dump(data_to_dump, file, indent=4)
-
-        print("Term added successfully.")
-
-        self.cont = input("Any other terms to add? Type 'yes' or 'no': \n"
-                          "\n")
-        if self.cont.lower().strip() == "yes":
-            self.theme_update()
-        elif self.cont.lower().strip() == "no":
-            print("Goodbye!")
-            sys.exit()
-        else:
-            print("Invalid input. Please enter 'yes' or 'no'.")
-            self.theme_update()
-
-        # Start the updating process for general_info
-
-updater = UpdateGeneralInfo()
-updater.theme_update()
+if __name__ == "__main__":
+    dream_instance = Dream()
+    dream_instance.dream_info()
+    dream_instance.generalize_dream()
+    analysis = dream_instance.dream_analysis()
+    print(analysis)
+    dream_instance.set_dream_mode()
