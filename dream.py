@@ -73,8 +73,6 @@ def theme_update():
                                "\n"
                                "\n").lower().split(',')]
 
-        # Finished updating attributes. Now will use to alter the general_info doc.
-
     new_term = {"term": key_word, "variations": variants, "meanings": meanings}
     themes_terms_meanings[theme_identity].append(new_term)
         
@@ -97,7 +95,7 @@ def theme_update():
         print("Invalid input. Please enter 'yes' or 'no'.")
         theme_update()
 
-def plot_most_repeated_dreams(json_file): # Khoa Do this will show the frequency of your repeated dream
+def plot_most_repeated_dreams(json_file): 
     # Load the JSON data into a DataFrame
     df = pd.read_json(json_file)
 
@@ -124,6 +122,10 @@ def plot_most_repeated_dreams(json_file): # Khoa Do this will show the frequency
     # Show the plot
     plt.show()
 
+#MALIK YOUR PART HERE
+def dream_pandas():
+    raise NotImplementedError
+
 class Dream:
     dream_counter = 0
     dream_data_list = []
@@ -144,8 +146,10 @@ class Dream:
         -top_3 (list): list of the top three dream themes in order of most
                         overlap to least
         -top_theme (str): the top theme based on overlap
-        -dream_symbols: (dict) contains master container of general dream
-                        symbols
+        -theme_terms
+        -general_terms
+        -themes_variations
+        -count_word
         """
         # Load existing dream data if available
         try:
@@ -175,7 +179,7 @@ class Dream:
         self.dream_mode = None
         self.set_dream_mode()
 
-    def dream_info(self):  # KHOA DO
+    def dream_info(self):
         """
             Collects and validates the date, time, and narrative contents of a dream
         from user input. It ensures that date and time are in the standard ISO
@@ -248,7 +252,7 @@ class Dream:
 
         print(f"Dream with ID {self.dream_id} has been recorded.")
 
-    def generalize_dream(self):  # STINA
+    def generalize_dream(self): 
         '''
         Processes a dictionary of themes to extract term variations and main terms.
 
@@ -279,9 +283,10 @@ class Dream:
                          "read a previous one\n"
                          "update the terms\n"
                          "plot theme data for all dreams"
+                         "get a dataframe of dreams (df)"
                          "exit the program\n"
                          "\n"
-                         "enter:(input/read/update/plot/exit): ").lower().strip()
+                         "enter:(input/read/update/plot/df/exit): ").lower().strip()
             if mode == "input":
                 self.dream_info()  
                 break
@@ -296,9 +301,10 @@ class Dream:
                 sys.exit()
             elif mode == "plot":
                 plot_most_repeated_dreams('dream_data.json')
+            elif mode == "df":
+                dream_pandas()
             else:
                 print("Invalid choice. Please enter 'input','read', or 'exit'.")
-
 
     def read_previous_dream(self):
         with open('dream_data.json', 'r') as file:
@@ -319,7 +325,7 @@ class Dream:
             if not dream in dream_data_list:
                 print("Dream not found.")
             
-    def find_dream_theme(self):  # MAYA
+    def find_dream_theme(self): 
         """
         Analyzes dream contents to find top three most prevalent themes.
 
@@ -383,7 +389,7 @@ class Dream:
 
         self.top_theme = self.top_3[0] if self.top_3 else None
 
-    def dream_analysis(self):  # MALIK
+    def dream_analysis(self):  
         """
         Writes unique f-string analysis dependant on top_theme. A uniquely
         formatted f-string should be written for each theme.
