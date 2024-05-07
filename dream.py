@@ -59,6 +59,7 @@ class Dream:
         self.dream_contents_list = []
         self.dream_data_list = []
         self.dream_mode = None
+        self.dream_mode = None
         self.set_dream_mode()
 
     def dream_info(self):  # KHOA DO
@@ -163,43 +164,35 @@ class Dream:
             mode = input("Do you want to input a new dream or read a previous one? (input/read): ").lower().strip()
             if mode == "input":
                 self.dream_mode = "input"
+                self.dream_info()  
                 break
             elif mode == "read":
                 self.dream_mode = "read"
+                self.read_previous_dream() 
                 break
             else:
                 print("Invalid choice. Please enter 'input' or 'read'.")
 
-            if self.dream_mode == "input":
-                self.dream_info() 
-            elif self.dream_mode == "read":
-                self.read_previous_dream() 
 
     def read_previous_dream(self):
-        """
-        Read and display previous dreams stored in the dream_data_list.
-        """
-        if not self.dream_data_list:
-            print("No previous dreams found.")
-            return
+        with open('dream_data.json', 'r') as file:
+            dream_data_list = json.load(file)
 
         print("Previous Dreams:")
-        for dream in self.dream_data_list:
+        for dream in dream_data_list:
             print(f"Dream ID: {dream['dream_id']}, Date: {dream['date']}, Time: {dream['time']}")
+            
+        dream_id = input("Enter the ID of the dream you want to read:")
         
-        dream_id = input("Enter the ID of the dream you want to read: ")
-        found_dream = False
-        for dream in self.dream_data_list:
+        for dream in dream_data_list:
             if str(dream['dream_id']) == dream_id:
                 print("Dream Contents:")
                 print(dream['dream_contents'])
-                found_dream = True
                 break
             
-        if not found_dream:
-            print("Dream not found.")
-
-
+            if not dream in dream_data_list:
+                print("Dream not found.")
+            
     def find_dream_theme(self):  # MAYA
         """
         Analyzes dream contents to find top three most prevalent themes.
@@ -343,6 +336,9 @@ dream_instance.dream_info()
 dream_instance.generalize_dream()
 analysis = dream_instance.dream_analysis()
 print(analysis)
+
+dream_instance.set_dream_mode()
+dream_instance.read_previous_dream()
 
 def plot_most_repeated_dreams(json_file): # Khoa Do this will show the frequency of your repeated dream
     # Load the JSON data into a DataFrame
