@@ -36,7 +36,8 @@ What files exist in our program's directory:
         -An external list of dream data dictionaries that is created in dream.py 
         and updated every time the input dream function in dream.py is called.
         Each inputted dream is assigned a unique dream id and has a dictionary item
-        of its basic data appended to the list. 
+        of its basic data appended to the list. Sample data is already inputted
+        for the sake of demonstration.
 
         The keys and values for each item within the list are as follows:
             - dream_id : (int) the unique primary key assigned to each Dream 
@@ -68,6 +69,20 @@ How to run dream.py in the command line/how to interpret:
           Also, if the general_info.py is updated or more data is added to 
           dream_data.json, save the files before re-running the script if you desire
           to access the newly inputted terms or dreams.
+
+          Finally, if you set the mode to input and enter a dream that does not have 
+          overlapping terms with general_info.py no analysis will be returned as 
+          returned in the terminal. Feel free to test whatever dream input you might 
+          want to run. If not, here is some good sample code. Make sure to paste
+          as a single line or an error will occur:
+
+          I woke up at 3 am. A particulary supernatural time said to be when the
+          spirits are most active. In my dream, I was in my bathroom and turned the
+          shower on. While the water was heating up, I was shaving in the mirror.
+          When I looked up to rinse my face, a skeleton was in the mirror looking 
+          back at me. I jumped in fear as the skeleton slowly turned into a more
+          human-like decayed ghost. The spirit did not seem friendly. It jumped
+          out of the mirror and I was being chased around my house by the ghost.
 
 
 Attribution:
