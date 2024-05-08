@@ -102,6 +102,20 @@ Attribution:
 
 Annotations:
     KHOA do the site for your dream_info regarding datetime and strptime. 
+    dream_info: Method Documentation
+
+Purpose: dream_info method is designed to collect, validate, and store user inputs regarding dream records. 
+- Data Collection: The method prompts the user to enter the date, time, and content of a dream. 
+- Data Validation: User input data will be validated using regex to confirm validation to expected formats (YYYY-MM-DD for date and HH:MM for time). Following regex validation, the method using Python's datetime library to construct datetime objects, making sure the inputs represent valid date and time values.
+- Error Handling: The method raises a ValueError if inputs fail to match the specified patterns or if the dream description is left empty.
+- Data Storage: Validated and formatted data is stored in dictionary format within a class-level list and stored externally in a JSON file, for future use and analysis for pandas.
+- Date Validation: Utilizes the re.match function to validate the date format and datetime.datetime.strptime to confirm its validity as a date.
+- Time Validation: Employs a similar approach as date validation, using re.match for format checking and datetime.datetime.strptime(date_string, format) is a method available from datetime module to ensure the string format appears in a logical time/date
+- Dream Description: Captures an input from the user. If the input is absent, a ValueError is raised to enforce the requirement of dream content.
+
+
+
+
 
     STINA do the websited that helped you create the general_info.py
 
