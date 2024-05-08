@@ -152,7 +152,7 @@ def dream_pandas():
     """
     df = pd.read_json("dream_data.json")
     
-    filter_choice = input("Return all, or limit by date, dream id"
+    filter_choice = input("\n\nReturn all, or limit by date, dream id"
                           ", or top theme?\n\n"
                           "enter(all/date/dream id/top theme): ").lower().strip()
     
@@ -162,11 +162,8 @@ def dream_pandas():
     elif filter_choice == "date":
         date = input("Enter the date of the dream (YYYY-MM-DD): ")
         if not re.match(r'\d{4}-\d{2}-\d{2}', date):
-            print("Date is not in the correct format (YYYY-MM-DD). Please try again.")
-        try:
-            datetime.datetime.strptime(date, '%Y-%m-%d')
-        except ValueError:
-            print("Date is invalid. Please enter a valid date.")
+             raise ValueError("Date is not in the correct format (YYYY-MM-DD)."
+                              " Please try again.")
                 
         desire = input("\n\nDo you want a single date's data or to display"
                        " all data before or after the base date?\n\n"
@@ -240,8 +237,7 @@ def dream_pandas():
         filtered_df = df[df['top_theme'] == theme_identity]
 
     else:
-        raise NotImplementedError("Selected filter is not implemented yet."
-                                  "Please run program again.")
+        raise NotImplementedError("Invalid input. Please run program again.")
     
     print(filtered_df)
 class Dream:
@@ -425,7 +421,8 @@ class Dream:
             Interacts with user via command line
         """
         while True:
-            mode = input("Do you want to:\n"
+            mode = input("\n\n\n"
+                        "Do you want to:\n"
                          "input a new dream\n"
                          "read a previous one\n"
                          "update the terms\n"
@@ -570,34 +567,34 @@ class Dream:
         if self.top_theme == "stress and anxiety":
             print(f"{intro} Your dream indicates you are feeling high levels of" 
                   " stress and anxiety. Imagery such as "
-                  f"{', '.join(self.dream_patterns)} are often "
+                  f"{', '.join(set(self.dream_patterns))} are often "
                 f"associated with high stress levels increased anxiety.\n\n\n")
 
         elif self.top_theme == "transitions and changes":
             print(
                 f"{intro} Your dream indicates you are in a period of transitions"
                 "and change. Imagery such as "
-                f"{', '.join(self.dream_patterns)} are often "
+                f"{', '.join(set(self.dream_patterns))} are often "
                 f"associated with high stress levels.\n\n\n")
                
         elif self.top_theme == "positive emotional states":
             print(
                 f"{intro} Your dream indicates you are in a positive emotional"
                 " state currently in your life."
-                f" Imagery such as {', '.join(self.dream_patterns)} are"
+                f" Imagery such as {', '.join(set(self.dream_patterns))} are"
                 f" often associated with positive emotional states.\n\n\n")
               
         elif self.top_theme == "needs and wants":
             print( f"{intro} Your dream indicates you are currently in need of "
                   "something or have a strong desire for something specific."
-                f" Imagery such as {', '.join(self.dream_patterns)} are often"
+                f" Imagery such as {', '.join(set(self.dream_patterns))} are often"
                 " associated with a subconcious desire for something.\n\n\n")
              
         elif self.top_theme == "relationships":
             print(
                 f"{intro} Your dream indicates you are currently focused on"
                 " relationships, and it is weighing heavily on your mind."
-                f" Imagery such as {', '.join(self.dream_patterns)} are often "
+                f" Imagery such as {', '.join(set(self.dream_patterns))} are often "
                 "associated with your subconcious thoughts about a"
                 " relationship in your life.\n\n\n")
             
@@ -605,14 +602,14 @@ class Dream:
             print(
                 f"{intro} Your dream indicates you are currently in a deep"
                 " state subconcious state of reflection."
-                f" Imagery such as {self.dream_patterns} are"
+                f" Imagery such as {', '.join(set(self.dream_patterns))} are"
                 f" often associated with a deep mental state of reflection.\n\n\n")
            
         elif self.top_theme == "fears":
             print(
                 f"{intro} Your dream indicates you have been thinking "
                 "critically about fear, and is currently a large part of your"
-                f" subconcious.Imagery such as {', '.join(self.dream_patterns)}"
+                f" subconcious.Imagery such as {', '.join(set(self.dream_patterns))}"
                 " are often associated with a high subconcious level of fear.\n\n\n")
             
         elif self.top_theme == "spiritual insights":
@@ -620,7 +617,7 @@ class Dream:
                 f"{intro} Your dream indicates you subconciously long for "
                 "spirtual insight. It is often associated with a desire for "
                 "change, or the end of something. Imagery such as "
-                f"{', '.join(self.dream_patterns)} "
+                f"{', '.join(', '.join(set(self.dream_patterns)))} "
                 "are most associated with these ideologies.\n\n\n")
            
         elif self.top_theme == None:
