@@ -36,22 +36,23 @@ def theme_update():
             8: "spiritual insights"}
 
     
-    theme_value = input('Enter the number corresponding to the theme of your term:\n'
-                                '1: Stress and anxiety\n'
-                                '2: Transitions and changes\n'
-                                '3: Positive emotional states\n'
-                                '4: Needs and wants\n'
-                                '5: Relationships\n'
-                                '6: Reflection\n'
-                                '7: Fears\n'
-                                '8: Spiritual insights\n')
+    theme_value = input("Enter the number corresponding to the theme of "
+                        "your term:\n"
+                                "1: Stress and anxiety\n"
+                                "2: Transitions and changes\n"
+                                "3: Positive emotional states\n"
+                                "4: Needs and wants\n"
+                                "5: Relationships\n"
+                                "6: Reflection\n"
+                                "7: Fears\n"
+                                "8: Spiritual insights\n")
 
     try:
         theme_value = int(theme_value)  
         if theme_value not in theme_dict:  
-            raise ValueError("Invalid number.")  
+            raise ValueError("\n\nInvalid number.\n\n")  
     except ValueError:  
-        print("\n\n\nInvalid input. Please enter a number between 1 and 8.\n\n\n")  
+        print("\n\nnInvalid input. Please enter a number between 1 and 8.\n\n")  
         theme_update()
 
     theme_identity = theme_dict[theme_value]
@@ -61,14 +62,19 @@ def theme_update():
                               "skeleton""\n\n\n").lower().strip()
 
     variants = [variant.strip() for variant in 
-                input("Enter the variations of the key term with commas to separate:\n"
+                input("Enter the variations of the key term with commas to"
+                      " separate:\n"
                                "For example:\n"
-                               "bones, skull, dead body, carcass\n\n\n").lower().split(',')]
+                               "bones, skull, dead body,"
+                               " carcass\n\n\n").lower().split(',')]
 
     meanings = [meaning.strip() for meaning in
-                         input("Enter the dream meanings of the key term with commas to separate:\n"
+                         input("Enter the dream meanings of the key"
+                               " term with commas to separate:\n\n"
                                "For example:\n"
-                               "secrets, subconscious worry, thoughts of death, guilt\n\n\n").lower().split(',')]
+                               "secrets, subconscious worry,"
+                               " thoughts of death, guilt"
+                               "\n\n\n").lower().split(',')]
 
     new_term = {"term": key_word, "variations": variants, "meanings": meanings}
     themes_terms_meanings[theme_identity].append(new_term)
@@ -88,7 +94,8 @@ def theme_update():
         pass
         print("\n\n\n")
     else:
-        print("Invalid input. If you wish to use another function simply call the script again.")
+        print("Invalid input. If you wish to use another function"
+              " simply call the script again.")
 
 def plot_most_repeated_dreams(json_file): 
     """
@@ -104,7 +111,8 @@ def plot_most_repeated_dreams(json_file):
     top_dreams = df['top_theme'].value_counts().head(10)
 
     # Create a bar plot for the most common dream contents
-    sns.barplot(x=top_dreams.values, y=top_dreams.index, hue=top_dreams.index, palette='coolwarm')
+    sns.barplot(x=top_dreams.values, y=top_dreams.index, 
+                hue=top_dreams.index, palette='coolwarm')
 
     # Add titles and labels
     plt.title('Most Repeated Dream Themes')
@@ -120,42 +128,14 @@ def plot_most_repeated_dreams(json_file):
     # Show the plot
     plt.show()
     
-#MALIK YOUR PART HERE
 def dream_pandas():
     """
     NEED DOCSTRING MALIK
     """
-    df = pd.read_json("dream_data.json")
-    summary_stats = df.describe()
-    dreams_per_day = df.groupby('date').size()
-    dreams_by_id = df.groupby('dream_id').size()
-    dreams_by_time = df.groupby('time').size()
-    dreams_by_theme = df.groupby('top_theme').size()
     
-    filter_choice = input("Limit by date, dream ID, time, or top theme? ").lower().strip()
-
-    if filter_choice == "date":
-        date_filter = input("Enter the date you want to search (YYYY-MM-DD): ")
-        filtered_data = df[df['date'] == date_filter]
-        print(filtered_data)
-
-    elif filter_choice == "dream id":
-        dream_id_filter = input("Enter the dream ID you want to search: ")
-        filtered_data = df[df['dream_id'] == int(dream_id_filter)]
-        print(filtered_data)
-
-    elif filter_choice == "time":
-        time_filter = input("Enter the time you want to search (HH:MM): ")
-        filtered_data = df[df['time'] == time_filter]
-        print(filtered_data)
-
-    elif filter_choice == "top theme":
-        top_theme_filter = input("Enter the top theme you want to search: ")
-        filtered_data = df[df['top_theme'] == top_theme_filter]
-        print(filtered_data)
-
-    else:
-        raise NotImplementedError("Selected filter is not implemented yet.")
+    raise NotImplementedError("Selected filter is not implemented yet."
+                                  "Please run program again.")
+    
 
 class Dream:
     """
@@ -224,7 +204,7 @@ class Dream:
 
     def dream_info(self):
         """
-            Collects and validates the date, time, and narrative contents of a dream
+        Collects and validates the date, time, and narrative contents of a dream
         from user input. It ensures that date and time are in the standard ISO
         format (YYYY-MM-DD and HH:MM respectively). The validated input is then
         assigned to the instance attributes and aggregated into dictionaries
@@ -233,25 +213,28 @@ class Dream:
 
         This method performs the following steps:
         - Prompt the user for the date, time, and content of the dream.
-        - Validate each input using regular expressions to match expected patterns.
+        - Validate each input using regular expressions to match patterns.
         - Raise a ValueError with an informative message if the input does not
           match the pattern.
-        - If input validation is successful, store the data in instance attributes.
+        - If input is validated, store the data in instance attributes.
         - Construct dictionaries containing the dream's metadata and narrative.
         - Append these dictionaries to corresponding class-level lists.
-        - Persist the updated lists to external JSON files for future retrieval and analysis.
+        - Persist the updated lists to external JSON files for future retrieval 
+          and analysis.
 
-        The method ensures the collection of cleanly formatted and consistent data
-        for each dream entry, facilitating reliable analysis in subsequent processes.
+        The method ensures the collection of cleanly formatted and consistent 
+        data for each dream entry, facilitating reliable analysis in 
+        subsequent processes.
 
         Raises:
-            ValueError: If any of the inputs do not conform to their expected format.
+            ValueError: If any of the inputs do not match their expected format.
         """
         # Ask user to input and validate the date with a loop
         while True:
             self.date = input("Enter the date of the dream (YYYY-MM-DD): ")
             if not re.match(r'\d{4}-\d{2}-\d{2}', self.date):
-                print("Date is not in the correct format (YYYY-MM-DD). Please try again.")
+                print("Date is not in the correct format (YYYY-MM-DD)."
+                      " Please try again.")
                 continue
             try:
                 # Try to create a datetime object to validate the date
@@ -264,7 +247,8 @@ class Dream:
         while True:
             self.time = input("Enter the time you woke up (HH:MM): ")
             if not re.match(r'\d{2}:\d{2}', self.time):
-                print("Time is not in the correct format (HH:MM). Please try again.")
+                print("Time is not in the correct format (HH:MM)."
+                      " Please try again.")
                 continue
             try:
                 # Try to create a time object to validate the time
@@ -335,8 +319,10 @@ class Dream:
 
     def set_dream_mode(self):
         """
-        Provide the user with an interactive menu in which they can select from a series of options to interact with their dream jornual. 
-        The user is able to input new dreams, read previous ones, update themes, plot theme data, retrieve a dataframe, or exit the program.
+        Provide the user with an interactive menu in which they can select from 
+        a series of options to interact with their dream jornual. The user is 
+        able to input new dreams, read previous ones, update themes, plot theme 
+        data, retrieve a dataframe, or exit the program.
         
         Raises:
             SystemExit: Exits the program when the user chooses to exit.
@@ -376,8 +362,10 @@ class Dream:
 
     def read_previous_dream(self):
         """
-        Display a list of previous dreams from a JSON file and allow the user to select the dream that they want to view.
-        The dreams are identified by their  ID, and the user inputs the ID of the dream they want to read, the selected dream is then displayed
+        Display a list of previous dreams from a JSON file and allow the user to
+        select the dream that they want to view. The dreams are identified by 
+        their  ID, and the user inputs the ID of the dream they want to read,
+        the selected dream is then displayed
         
         Raises:
             FileNotFoundError: If the 'dream_data.json' file does not exist.
@@ -456,7 +444,8 @@ class Dream:
                 for term_data in terms:
                     if word in term_data["variations"]:
                         term = term_data["term"]
-                        self.term_overlap[term] = self.term_overlap.get(term, 0) + occurrence
+                        self.term_overlap[term] = (self.term_overlap.get(term, 0) 
+                                                   + occurrence)
        
         # finds the amount of times a variation/term of a certain theme
         for word in self.dream_patterns:
@@ -465,7 +454,8 @@ class Dream:
                     self.count_theme[theme] = self.count_theme.get(theme, 0) + 1
 
         # find top theme and top 3 and assign back to attribute of instance
-        self.top_3 = sorted(self.count_theme, key=self.count_theme.get, reverse=True)[:3]
+        self.top_3 = sorted(self.count_theme, key=self.count_theme.get,
+                            reverse=True)[:3]
 
         self.top_theme = self.top_3[0] if self.top_3 else None
 
@@ -480,47 +470,64 @@ class Dream:
         - Conditional Expressions
         - F-strings Containing Expressions
         """
-        intro = f"\n\n\nYour top themes were {', '.join(self.top_3)}. Among those your most prevelant theme was {self.top_theme}.\n\n\n"
+        intro = f"\n\n\nYour top themes were {', '.join(self.top_3)}."
+        " Among those your most prevelant theme was {self.top_theme}.\n\n\n"
 
         if self.top_theme == "stress and anxiety":
-            print(
-                f"{intro} Your dream indicates you are feeling high levels of stress and anxiety. Imagery such as {', '.join(self.dream_patterns)} are often "
+            print(f"{intro} Your dream indicates you are feeling high levels of" 
+                  " stress and anxiety. Imagery such as "
+                  f"{', '.join(self.dream_patterns)} are often "
                 f"associated with high stress levels increased anxiety.\n\n\n")
 
         elif self.top_theme == "transitions and changes":
             print(
-                f"{intro} Your dream indicates you are in a period of transitions and change. Imagery such as {', '.join(self.dream_patterns)} are often "
+                f"{intro} Your dream indicates you are in a period of transitions"
+                "and change. Imagery such as "
+                f"{', '.join(self.dream_patterns)} are often "
                 f"associated with high stress levels.\n\n\n")
                
         elif self.top_theme == "positive emotional states":
             print(
-                f"{intro} Your dream indicates you are in a positive emotional state currently in your life. Imagery such as {', '.join(self.dream_patterns)} are"
-                f"often associated with positive emotional states.\n\n\n")
+                f"{intro} Your dream indicates you are in a positive emotional"
+                " state currently in your life."
+                f" Imagery such as {', '.join(self.dream_patterns)} are"
+                f" often associated with positive emotional states.\n\n\n")
               
         elif self.top_theme == "needs and wants":
-            print(
-                f"{intro} Your dream indicates you are currently in need of something or have a strong desire for something specific."
-                f" Imagery such as {', '.join(self.dream_patterns)} are often associated with a subconcious desire for something.\n\n\n")
+            print( f"{intro} Your dream indicates you are currently in need of "
+                  "something or have a strong desire for something specific."
+                f" Imagery such as {', '.join(self.dream_patterns)} are often"
+                " associated with a subconcious desire for something.\n\n\n")
              
         elif self.top_theme == "relationships":
             print(
-                f"{intro} Your dream indicates you are currently focused on relationships, and it is weighing heavily on your mind."
-                f" Imagery such as {', '.join(self.dream_patterns)} are often associated with your subconcious thoughts about a relationship in your life.\n\n\n")
+                f"{intro} Your dream indicates you are currently focused on"
+                " relationships, and it is weighing heavily on your mind."
+                f" Imagery such as {', '.join(self.dream_patterns)} are often "
+                "associated with your subconcious thoughts about a"
+                " relationship in your life.\n\n\n")
             
         elif self.top_theme == "reflection":
             print(
-                f"{intro} Your dream indicates you are currently in a deep state subconcious state of reflection, Imagery such as {self.dream_patterns} are"
+                f"{intro} Your dream indicates you are currently in a deep"
+                " state subconcious state of reflection."
+                f" Imagery such as {self.dream_patterns} are"
                 f" often associated with a deep mental state of reflection.\n\n\n")
            
         elif self.top_theme == "fears":
             print(
-                f"{intro} Your dream indicates you have been thinking critically about fear, and is currently a large part of your subconcious."
-                f" Imagery such as {', '.join(self.dream_patterns)} are often associated with a high subconcious level of fear.\n\n\n")
+                f"{intro} Your dream indicates you have been thinking "
+                "critically about fear, and is currently a large part of your"
+                f" subconcious.Imagery such as {', '.join(self.dream_patterns)}"
+                " are often associated with a high subconcious level of fear.\n\n\n")
             
         elif self.top_theme == "spiritual insights":
             print(
-                f"{intro} Your dream indicates you subconciously long for spirtual insight. It is often associated with a desire for change, or the"
-                f" end of something. Imagery such as {', '.join(self.dream_patterns)} are most associated with these ideologies.\n\n\n")
+                f"{intro} Your dream indicates you subconciously long for "
+                "spirtual insight. It is often associated with a desire for "
+                "change, or the end of something. Imagery such as "
+                f"{', '.join(self.dream_patterns)} "
+                "are most associated with these ideologies.\n\n\n")
            
         elif self.top_theme == None:
             print("\n\n\nThere is not enough content for an analysis.\n\n\n")
