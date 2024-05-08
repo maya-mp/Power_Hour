@@ -125,7 +125,37 @@ def dream_pandas():
     """
     NEED DOCSTRING MALIK
     """
-    raise NotImplementedError #remove before you push this Malik
+    df = pd.read_json(dream_data.json)
+    summary_stats = df.describe()
+    dreams_per_day = df.groupby('date').size()
+    dreams_by_id = df.groupby('dream_id').size()
+    dreams_by_time = df.groupby('time').size()
+    dreams_by_theme = df.groupby('top_theme').size()
+    
+    filter_choice = input("Limit by date, dream ID, time, or top theme? ").lower().strip()
+
+    if filter_choice == "date":
+        date_filter = input("Enter the date you want to search (YYYY-MM-DD): ")
+        filtered_data = df[df['date'] == date_filter]
+        print(filtered_data)
+
+    elif filter_choice == "dream id":
+        dream_id_filter = input("Enter the dream ID you want to search: ")
+        filtered_data = df[df['dream_id'] == int(dream_id_filter)]
+        print(filtered_data)
+
+    elif filter_choice == "time":
+        time_filter = input("Enter the time you want to search (HH:MM): ")
+        filtered_data = df[df['time'] == time_filter]
+        print(filtered_data)
+
+    elif filter_choice == "top theme":
+        top_theme_filter = input("Enter the top theme you want to search: ")
+        filtered_data = df[df['top_theme'] == top_theme_filter]
+        print(filtered_data)
+
+    else:
+        raise NotImplementedError("Selected filter is not implemented yet.")
 
 class Dream:
     """
@@ -292,6 +322,11 @@ class Dream:
             
             return self.general_terms, self.theme_terms
         
+        for theme_name, term_list in themes_terms_meanings.items():
+            for term_dict in term_list:
+                variations = term_dict.get("variations")
+                if variations:
+                    self.general_terms.extend(variations)
         for theme_name, terms_data in themes_terms_meanings.items():
             terms = [term_data['term'] for term_data in terms_data]
             self.theme_terms[theme_name] = terms
