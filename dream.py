@@ -279,11 +279,17 @@ class Dream:
         variations and a dictionary that connect each theme to its primary terms.
 
         '''
-        for theme_name, term_list in themes_terms_meanings.items():
-            for term_dict in term_list:
-                variations = term_dict.get("variations")
-                if variations:
-                    self.general_terms.extend(variations)
+        self.general_terms.extend(
+        term_dict.get("variations")
+        for term_list in themes_terms_meanings.values()
+        for term_dict in term_list
+        if term_dict.get("variations") is not None
+        )
+        for theme_name, terms_data in themes_terms_meanings.items():
+            terms = [term_data['term'] for term_data in terms_data]
+            self.theme_terms[theme_name] = terms
+            
+            return self.general_terms, self.theme_terms
         for theme_name, terms_data in themes_terms_meanings.items():
             terms = [term_data['term'] for term_data in terms_data]
             self.theme_terms[theme_name] = terms
