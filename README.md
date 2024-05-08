@@ -93,11 +93,11 @@ Attribution:
 | plot_most_repeated_dreams | Khoa Do      | Visualizing data with pyplot |
 | dream_pandas           | Malik Oumarou  | Operations on Pandas dataframes |
 | Dream.__init__         | everyone       | N/A                           |
-| Dream.dream_info       | Khoa Do        | Regular expressions          |
-| Dream.generalize_dream | Stina Drill    | OVERLAP                       |
+| Dream.dream_info       | Khoa Do        | Regular expressions           |
+| Dream.generalize_dream | Stina Drill    | container comprehensions      |
 | Dream.set_dream_mode   | Stina Drill    | OVERLAP                       |
 | Dream.read_previous_dream | Stina Drill | With statement                |
-| Dream.find_dream_theme | Maya Patel     | Sequence unpacking            |
+| Dream.find_dream_theme | Maya Patel     | use of sorted() key function  |
 | Dream.dream_analysis   | Malik Oumarou  | F-strings containing expressions |
 
 Annotations:
