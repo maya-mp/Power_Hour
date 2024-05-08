@@ -119,50 +119,112 @@ def plot_most_repeated_dreams(json_file):
 
     # Show the plot
     plt.show()
-    
+
 #MALIK YOUR PART HERE
 def dream_pandas():
     """
     NEED DOCSTRING MALIK
     """
     df = pd.read_json("dream_data.json")
-    summary_stats = df.describe()
-    dreams_per_day = df.groupby('date').size()
-    dreams_by_id = df.groupby('dream_id').size()
-    dreams_by_time = df.groupby('time').size()
-    dreams_by_theme = df.groupby('top_theme').size()
     
-    filter_choice = input("Limit by date, dream ID, time, or top theme? ").lower().strip()
-
-    if filter_choice == "date":
-        date_filter = input("Enter the date you want to search (YYYY-MM-DD): ")
-        filtered_data = df[df['date'] == date_filter]
-        print(filtered_data)
-
+    filter_choice = input("Return all, or limit by date, dream id"
+                          ", or top theme?\n\n"
+                          "enter(all/date/dream id/top theme): ").lower().strip()
+    
+    if filter_choice == "all": #FIX
+        filtered_df = df
+#This whole if statement is modified from Khoa's dream_info() method cite in docstring - MALIK
+    elif filter_choice == "date":
+        date = input("Enter the date of the dream (YYYY-MM-DD): ")
+        if not re.match(r'\d{4}-\d{2}-\d{2}', date):
+            print("Date is not in the correct format (YYYY-MM-DD). Please try again.")
+        try:
+            datetime.datetime.strptime(date, '%Y-%m-%d')
+        except ValueError:
+            print("Date is invalid. Please enter a valid date.")
+                
+        desire = input("\n\nDo you want a single date's data or to display"
+                       " all data before or after the base date?\n\n"
+                       "enter (base/before/after)\n\n")
+        
+        if desire in ["base", "before", "after"]:
+            pass
+         
+        else:
+            raise ValueError("Invalid command. Please run again.")
+        
+        if desire == "base":
+            filtered_df = df[df["date"] == date]
+        if desire == "before":
+            filtered_df = df[df["date"] <= date]
+        if desire == "after":
+            filtered_df = df[df["date"] >= date]
+            
     elif filter_choice == "dream id":
-        dream_id_filter = input("Enter the dream ID you want to search: ")
-        filtered_data = df[df['dream_id'] == int(dream_id_filter)]
-        print(filtered_data)
-
-    elif filter_choice == "time":
-        time_filter = input("Enter the time you want to search (HH:MM): ")
-        filtered_data = df[df['time'] == time_filter]
-        print(filtered_data)
+        dream_id = int(input("Enter the dream ID you want to search: "))
+        
+        desire = input("\n\nDo you want a single dream id's data or to display"
+                       " all data before or after the base dream id?\n\n"
+                       "enter (base/before/after)\n\n")
+        
+        if desire in ["base", "before", "after"]:
+            pass
+         
+        else:
+            raise ValueError("Invalid command. Please run again.")
+        
+        if desire == "base":
+            filtered_df = df[df["dream_id"] == dream_id]
+        if desire == "before":
+            filtered_df = df[df["dream_id"] <= dream_id]
+        if desire == "after":
+            filtered_df = df[df["dream_id"] >= dream_id]
 
     elif filter_choice == "top theme":
-        top_theme_filter = input("Enter the top theme you want to search: ")
-        filtered_data = df[df['top_theme'] == top_theme_filter]
-        print(filtered_data)
+        #this is pulled from Maya's update_theme() function MALIK
+        theme_dict = {
+            1: "stress and anxiety",
+            2: "transitions and changes",
+            3: "positive emotional states",
+            4: "needs and wants",
+            5: "relationships",
+            6: "reflection",
+            7: "fears",
+            8: "spiritual insights"}
+
+    
+        theme_value = input('Enter the number corresponding to the theme of your term:\n'
+                                '1: Stress and anxiety\n'
+                                '2: Transitions and changes\n'
+                                '3: Positive emotional states\n'
+                                '4: Needs and wants\n'
+                                '5: Relationships\n'
+                                '6: Reflection\n'
+                                '7: Fears\n'
+                                '8: Spiritual insights\n')
+
+        try:
+            theme_value = int(theme_value)  
+            if theme_value not in theme_dict:  
+                raise ValueError("Invalid number.")  
+        except ValueError:  
+            print("\n\n\nInvalid input. Please enter a number between 1 and 8.\n\n\n")  
+            dream_pandas()
+
+        theme_identity = theme_dict[theme_value]
+        filtered_df = df[df['top_theme'] == theme_identity]
 
     else:
-        raise NotImplementedError("Selected filter is not implemented yet.")
-
+        raise NotImplementedError("Selected filter is not implemented yet."
+                                  "Please run program again.")
+    
+    print(filtered_df)
 class Dream:
     """
     Takes user inputted dream data and returns analysis, stores data to external
     files, allows for dream lookup by dream ID, and allows for external 
     fucntions to be called for data visualization or external file alteration.
-    
+     
     Attributes:
         - dream_id (int): A unique identifier for each dream.
         - date (str): The date entered.
@@ -309,19 +371,6 @@ class Dream:
         variations and a dictionary that connect each theme to its primary terms.
 
         '''
-        self.general_terms.extend(
-        term_dict.get("variations")
-        for term_list in themes_terms_meanings.values()
-        for term_dict in term_list
-        if term_dict.get("variations") is not None
-        )
-        
-        for theme_name, terms_data in themes_terms_meanings.items():
-            terms = [term_data['term'] for term_data in terms_data]
-            self.theme_terms[theme_name] = terms
-            
-            return self.general_terms, self.theme_terms
-        
         for theme_name, term_list in themes_terms_meanings.items():
             for term_dict in term_list:
                 variations = term_dict.get("variations")
