@@ -285,11 +285,13 @@ class Dream:
         for term_dict in term_list
         if term_dict.get("variations") is not None
         )
+        
         for theme_name, terms_data in themes_terms_meanings.items():
             terms = [term_data['term'] for term_data in terms_data]
             self.theme_terms[theme_name] = terms
             
             return self.general_terms, self.theme_terms
+        
         for theme_name, terms_data in themes_terms_meanings.items():
             terms = [term_data['term'] for term_data in terms_data]
             self.theme_terms[theme_name] = terms
