@@ -14,19 +14,6 @@ def theme_update():
     """
     NEED DOCSTRING MAYA
     """
-    run_program = input("\n"
-    "Are you trying to update the dream information term list? Enter 'yes' or 'no'.\n"
-                                 "\n"
-                                 "\n")
-    if run_program.lower().strip() == "yes":
-        pass
-    elif run_program.lower().strip() == "no":
-        print("Goodbye!")
-        sys.exit()
-    else:
-        print("Invalid input. Please enter 'yes' or 'no'.")
-        return
-
     theme_dict = {
             1: "stress and anxiety",
             2: "transitions and changes",
@@ -37,6 +24,7 @@ def theme_update():
             7: "fears",
             8: "spiritual insights"}
 
+    
     theme_value = input('Enter the number corresponding to the theme of your term:\n'
                                 '1: Stress and anxiety\n'
                                 '2: Transitions and changes\n'
@@ -52,29 +40,24 @@ def theme_update():
         if theme_value not in theme_dict:  
             raise ValueError("Invalid number.")  
     except ValueError:  
-        print("Invalid input. Please enter a number between 1 and 8.")  
+        print("\n\n\nInvalid input. Please enter a number between 1 and 8.\n\n\n")  
+        theme_update()
 
     theme_identity = theme_dict[theme_value]
 
     key_word = input("Enter the key word:""\n"
                               "For example:\n"
-                              "skeleton""\n"
-                              "\n"
-                              "\n").lower().strip()
+                              "skeleton""\n\n\n").lower().strip()
 
     variants = [variant.strip() for variant in 
                 input("Enter the variations of the key term with commas to separate:\n"
                                "For example:\n"
-                               "bones, skull, dead body, carcass\n"
-                               "\n"
-                               "\n").lower().split(',')]
+                               "bones, skull, dead body, carcass\n\n\n").lower().split(',')]
 
     meanings = [meaning.strip() for meaning in
                          input("Enter the dream meanings of the key term with commas to separate:\n"
                                "For example:\n"
-                               "secrets, subconscious worry, thoughts of death, guilt\n"
-                               "\n"
-                               "\n").lower().split(',')]
+                               "secrets, subconscious worry, thoughts of death, guilt\n\n\n").lower().split(',')]
 
     new_term = {"term": key_word, "variations": variants, "meanings": meanings}
     themes_terms_meanings[theme_identity].append(new_term)
@@ -87,16 +70,14 @@ def theme_update():
 
     print("Term added successfully.")
 
-    cont = input("Any other terms to add? Type 'yes' or 'no': \n"
-                          "\n")
+    cont = input("Any other terms to add? Type 'yes' or 'no': \n\n\n")
     if cont.lower().strip() == "yes":
         theme_update()
     elif cont.lower().strip() == "no":
-        print("Goodbye!")
-        sys.exit()
+        pass
+        print("\n\n\n")
     else:
-        print("Invalid input. Please enter 'yes' or 'no'.")
-        theme_update()
+        print("Invalid input. If you wish to use another function simply call the script again.")
 
 def plot_most_repeated_dreams(json_file): 
     """
@@ -424,50 +405,50 @@ class Dream:
         - Conditional Expressions
         - F-strings Containing Expressions
         """
-        intro = f"Your top themes were {', '.join(self.top_3)}. Among those your most prevelant theme was {self.top_theme}."
+        intro = f"\n\n\nYour top themes were {', '.join(self.top_3)}. Among those your most prevelant theme was {self.top_theme}.\n\n\n"
 
         if self.top_theme == "stress and anxiety":
             print(
                 f"{intro} Your dream indicates you are feeling high levels of stress and anxiety. Imagery such as {', '.join(self.dream_patterns)} are often "
-                f"associated with high stress levels increased anxiety.")
+                f"associated with high stress levels increased anxiety.\n\n\n")
 
         elif self.top_theme == "transitions and changes":
             print(
                 f"{intro} Your dream indicates you are in a period of transitions and change. Imagery such as {', '.join(self.dream_patterns)} are often "
-                f"associated with high stress levels.")
+                f"associated with high stress levels.\n\n\n")
                
-        elif self.top_theme == "positive emotional states.":
+        elif self.top_theme == "positive emotional states":
             print(
                 f"{intro} Your dream indicates you are in a positive emotional state currently in your life. Imagery such as {', '.join(self.dream_patterns)} are"
-                f"often associated with positive emotional states.")
+                f"often associated with positive emotional states.\n\n\n")
               
         elif self.top_theme == "needs and wants":
             print(
                 f"{intro} Your dream indicates you are currently in need of something or have a strong desire for something specific."
-                f" Imagery such as {', '.join(self.dream_patterns)} are often associated with a subconcious desire for something.")
+                f" Imagery such as {', '.join(self.dream_patterns)} are often associated with a subconcious desire for something.\n\n\n")
              
         elif self.top_theme == "relationships":
             print(
                 f"{intro} Your dream indicates you are currently focused on relationships, and it is weighing heavily on your mind."
-                f" Imagery such as {', '.join(self.dream_patterns)} are often associated with your subconcious thoughts about a relationship in your life.")
+                f" Imagery such as {', '.join(self.dream_patterns)} are often associated with your subconcious thoughts about a relationship in your life.\n\n\n")
             
         elif self.top_theme == "reflection":
             print(
                 f"{intro} Your dream indicates you are currently in a deep state subconcious state of reflection, Imagery such as {self.dream_patterns} are"
-                f" often associated with a deep mental state of reflection.")
+                f" often associated with a deep mental state of reflection.\n\n\n")
            
         elif self.top_theme == "fears":
             print(
                 f"{intro} Your dream indicates you have been thinking critically about fear, and is currently a large part of your subconcious."
-                f" Imagery such as {', '.join(self.dream_patterns)} are often associated with a high subconcious level of fear.")
+                f" Imagery such as {', '.join(self.dream_patterns)} are often associated with a high subconcious level of fear.\n\n\n")
             
         elif self.top_theme == "spiritual insights":
             print(
                 f"{intro} Your dream indicates you subconciously long for spirtual insight. It is often associated with a desire for change, or the"
-                f" end of something. Imagery such as {', '.join(self.dream_patterns)} are most associated with these ideologies.")
+                f" end of something. Imagery such as {', '.join(self.dream_patterns)} are most associated with these ideologies.\n\n\n")
            
         elif self.top_theme == None:
-            print("There is not enough content for an analysis.")
+            print("There is not enough content for an analysis.\n\n\n")
 
 if __name__ == "__main__":
     dream_instance = Dream()
