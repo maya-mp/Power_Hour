@@ -119,13 +119,13 @@ def plot_most_repeated_dreams(json_file):
 
     # Show the plot
     plt.show()
-
+    
 #MALIK YOUR PART HERE
 def dream_pandas():
     """
     NEED DOCSTRING MALIK
     """
-    df = pd.read_json(dream_data.json)
+    df = pd.read_json("dream_data.json")
     summary_stats = df.describe()
     dreams_per_day = df.groupby('date').size()
     dreams_by_id = df.groupby('dream_id').size()
