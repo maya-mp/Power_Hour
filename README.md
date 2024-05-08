@@ -115,8 +115,9 @@ Annotations:
 
 
 
+Sources- I used all three of these sources to create the general_info.py
+https://www.dreamdictionary.org/
+https://www.dreambible.com/
+https://www.dreammoods.com/
 
 
-    STINA do the websited that helped you create the general_info.py
-
-    Make sure the annotations are in ACADEMIC FORMAT
