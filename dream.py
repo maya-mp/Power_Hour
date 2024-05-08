@@ -120,10 +120,23 @@ def plot_most_repeated_dreams(json_file):
     # Show the plot
     plt.show()
 
-#MALIK YOUR PART HERE
+
 def dream_pandas():
     """
-    NEED DOCSTRING MALIK
+    Reads dream data from the JSON and filters based on date, dream ID, or top theme, or includes option to return all dream data based on 
+    paramaters set by the user.
+    Note: collabrative coding efforts with Khoa and Maya to connect dream_pandas() to dream_info(), and dream_update() with permission from Khoa and Maya.
+
+    Parameters:
+        None
+
+    Returns:
+        None
+
+    Raises:
+        ValueError: If the date format is incorrect or an invalid date is entered.
+        NotImplementedError: If the selected filter is not implemented yet.
+
     """
     df = pd.read_json("dream_data.json")
     
@@ -131,9 +144,9 @@ def dream_pandas():
                           ", or top theme?\n\n"
                           "enter(all/date/dream id/top theme): ").lower().strip()
     
-    if filter_choice == "all": #FIX
+    if filter_choice == "all": 
         filtered_df = df
-#This whole if statement is modified from Khoa's dream_info() method cite in docstring - MALIK
+
     elif filter_choice == "date":
         date = input("Enter the date of the dream (YYYY-MM-DD): ")
         if not re.match(r'\d{4}-\d{2}-\d{2}', date):
@@ -181,7 +194,7 @@ def dream_pandas():
             filtered_df = df[df["dream_id"] >= dream_id]
 
     elif filter_choice == "top theme":
-        #this is pulled from Maya's update_theme() function MALIK
+        
         theme_dict = {
             1: "stress and anxiety",
             2: "transitions and changes",
