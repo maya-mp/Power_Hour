@@ -292,7 +292,14 @@ class Dream:
 
     def set_dream_mode(self):
         """
-        NEED DOCSTRING STINA
+        Provide the user with an interactive menu in which they can select from a series of options to interact with their dream jornual. 
+        The user is able to input new dreams, read previous ones, update themes, plot theme data, retrieve a dataframe, or exit the program.
+        
+        Raises:
+            SystemExit: Exits the program when the user chooses to exit.
+        Side Effects:
+            Reads from dream_data.json
+            Interacts with user via command line
         """
         while True:
             mode = input("Do you want to:\n"
@@ -326,7 +333,16 @@ class Dream:
 
     def read_previous_dream(self):
         """
-        NEED DOCSTRING STINA
+        Display a list of previous dreams from a JSON file and allow the user to select the dream that they want to view.
+        The dreams are identified by their  ID, and the user inputs the ID of the dream they want to read, the selected dream is then displayed
+        
+        Raises:
+            FileNotFoundError: If the 'dream_data.json' file does not exist.
+
+        Side Effects:
+            Reads from a file named 'dream_data.json' 
+            interacts with the user via the command line.
+            This method might print an error messages if the dream is not found.
         """
         with open('dream_data.json', 'r') as file:
             dream_data_list = json.load(file)
@@ -469,6 +485,8 @@ class Dream:
 if __name__ == "__main__":
     dream_instance = Dream()
     dream_instance.set_dream_mode() 
+
+
 
 
 
