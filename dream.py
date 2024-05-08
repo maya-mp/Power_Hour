@@ -131,9 +131,13 @@ def plot_most_repeated_dreams(json_file):
 
 def dream_pandas():
     """
-    Reads dream data from the JSON and filters based on date, dream ID, or top theme, or includes option to return all dream data based on 
+    Reads dream data from the JSON and filters based on date, dream ID, or 
+    top theme, or includes option to return all dream data based on 
     paramaters set by the user.
-    Note: collabrative coding efforts with Khoa and Maya to connect dream_pandas() to dream_info(), and dream_update() with permission from Khoa and Maya.
+    
+    Note: collabrative coding efforts with Khoa and Maya to connect 
+    dream_pandas() to dream_info(), and dream_update() with 
+    permission from Khoa and Maya.
 
     Parameters:
         None
