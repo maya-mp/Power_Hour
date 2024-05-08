@@ -115,7 +115,8 @@ Annotations:
 - The strptime function is part of the datetime module and stands for "string parse time".
 - “Python Strptime().” Programiz, www.programiz.com/python-programming/datetime/strptime.
   
-    - plot_most_repeated_dreams function: 
+    - plot_most_repeated_dreams function:
+      
 -Purpose: The plot_most_repeated_dreams function is designed to visualize the frequency of recurring dream themes based on dream records stored in a JSON file. 
 - Data Loading: The function reads dream data from a specified JSON file into a pandas DataFrame.
 - Data Visualization: Using matplotlib and seaborn libraries to create a bar plot that displays the top 10 most frequent dream themes.
