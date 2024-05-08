@@ -102,7 +102,7 @@ Attribution:
 
 Annotations:
     KHOA do the site for your dream_info regarding datetime and strptime. 
-- dream_info: Method Documentation
+    - dream_info: Method Documentation
 
 - Purpose: dream_info method is designed to collect, validate, and store user inputs regarding dream records. 
 - Data Collection: The method prompts the user to enter the date, time, and content of a dream. 
@@ -112,6 +112,18 @@ Annotations:
 - Date Validation: Utilizes the re.match function to validate the date format and datetime.datetime.strptime to confirm its validity as a date.
 - Time Validation: Employs a similar approach as date validation, using re.match for format checking and datetime.datetime.strptime(date_string, format) is a method available from datetime module to ensure the string format appears in a logical time/date
 - Dream Description: Captures an input from the user. If the input is absent, a ValueError is raised to enforce the requirement of dream content.
+- The strptime function is part of the datetime module and stands for "string parse time".
+- “Python Strptime().” Programiz, www.programiz.com/python-programming/datetime/strptime.
+  
+    - plot_most_repeated_dreams function: 
+-Purpose: The plot_most_repeated_dreams function is designed to visualize the frequency of recurring dream themes based on dream records stored in a JSON file. 
+- Data Loading: The function reads dream data from a specified JSON file into a pandas DataFrame.
+- Data Visualization: Using matplotlib and seaborn libraries to create a bar plot that displays the top 10 most frequent dream themes.
+- Customization and Layout: Adjusts the size of the plot for clarity and disables the legend for a cleaner visual presentation, ensuring the focus remains on the data.
+- Plotting: A seaborn bar plot (sns.barplot) is used for its advanced styling and easy integration with pandas data structures.
+- json_file: A string representing the path to the JSON file containing the dream data.
+-If the JSON file is not found or is invalid, a file-related error will be raised (e.g., FileNotFoundError).
+
 
 
 
