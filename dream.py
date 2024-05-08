@@ -12,7 +12,18 @@ with open('general_info.py', 'r') as file:
     
 def theme_update():
     """
-    NEED DOCSTRING MAYA
+    Allows users to update external dictionary of dream themes with associated 
+    terms and meanings.
+    
+    Prompts user to select the theme associated with their term then instructs
+    them to enter the key term, variations, and associated meanings.
+    
+    Raises:
+        ValueError: If the entered theme number is invalid.
+        
+    Side effects:
+        Appends term dictionary as an item to the corresponding term in external
+        file, general_info.py.
     """
     theme_dict = {
             1: "stress and anxiety",
@@ -114,20 +125,15 @@ def dream_pandas():
     """
     NEED DOCSTRING MALIK
     """
-    raise NotImplementedError
+    raise NotImplementedError #remove before you push this Malik
 
 class Dream:
     """
-    NEED TO WRITE CLASS DOCSTRING - MAYA
-    """
-    dream_counter = 0
-    dream_data_list = []
-
-    def __init__(self):  # EVERYONE
-        """
-        Initializes Dream class.
-
-        Attributes:
+    Takes user inputted dream data and returns analysis, stores data to external
+    files, allows for dream lookup by dream ID, and allows for external 
+    fucntions to be called for data visualization or external file alteration.
+    
+    Attributes:
         - dream_id (int): A unique identifier for each dream.
         - date (str): The date entered.
         - time (str): The time entered.
@@ -142,13 +148,22 @@ class Dream:
         -theme_terms  STINA
         -general_terms  STINA
         -themes_variations  STINA
-        -count_word    MAYA
-        -count_theme   MAYA
+        -count_word (dict): counts the number of occurance for terms in 
+        dream_patterns. Key is the term and value is the number of occurances.
+        -count_theme (dict): counts the number of terms in dream_patterns that 
+        correspond with each theme. Key is theme name and value is the number of
+        occurances.
         -dream_contents_list  KHOA
         -dream_data_list   KHOA
         -dream_mode  STINA
         -set_dream_mode()  STINA
-        -meanings MAYA
+    """
+    dream_counter = 0
+    dream_data_list = []
+
+    def __init__(self):  
+        """
+        Initializes Dream class.
         """
         # Load existing dream data if available
         try:
@@ -259,8 +274,9 @@ class Dream:
                 - A list of all term variations from the themes.
                 - A dictionary mapping each theme to its list of main terms.
 
-        This function iterates through the dictionary where all of the themes are linked to terms and
-        their variations. It compiles a list of all variations and a dictionary that connect each theme to its primary terms.
+        This function iterates through the dictionary where all of the themes 
+        are linked to terms and their variations. It compiles a list of all 
+        variations and a dictionary that connect each theme to its primary terms.
 
         '''
         for theme_name, term_list in themes_terms_meanings.items():
@@ -448,7 +464,7 @@ class Dream:
                 f" end of something. Imagery such as {', '.join(self.dream_patterns)} are most associated with these ideologies.\n\n\n")
            
         elif self.top_theme == None:
-            print("There is not enough content for an analysis.\n\n\n")
+            print("\n\n\nThere is not enough content for an analysis.\n\n\n")
 
 if __name__ == "__main__":
     dream_instance = Dream()
