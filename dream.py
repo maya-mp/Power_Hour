@@ -471,8 +471,9 @@ class Dream:
 
 if __name__ == "__main__":
     dream_instance = Dream()
-    dream_instance.dream_info()  # Collect dream information
-    dream_instance.dream_analysis()  # Analyze the dream
-    dream_instance.set_dream_mode()  # Provide options for next steps
+    dream_instance.set_dream_mode() 
+
+
+
 
 

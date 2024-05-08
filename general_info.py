@@ -128,7 +128,7 @@
                     "thoughts of death",
                     "guilt"
                 ]
-            }
+            }    
         ],
         "transitions and changes": [
             {
