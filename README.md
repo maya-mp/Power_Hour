@@ -76,6 +76,8 @@ How to run dream.py in the command line/how to interpret:
           want to run. If not, here is some good sample code. Make sure to paste
           as a single line or an error will occur:
 
+Sample dream: 
+
           I woke up at 3 am. A particulary supernatural time said to be when the
           spirits are most active. In my dream, I was in my bathroom and turned the
           shower on. While the water was heating up, I was shaving in the mirror.
