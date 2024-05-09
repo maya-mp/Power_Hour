@@ -99,7 +99,24 @@ def theme_update():
 
 def plot_most_repeated_dreams(json_file): 
     """
-    KHOA WRITE DOCSTRING
+    Visualizes the most frequently reported dream themes based on data stored in a JSON file.
+    The function reads the JSON file into a pandas DataFrame, counts  of each theme,
+    and displays a bar plot of the top 10 most frequent dream themes.
+
+    Parameters:
+    - json_file (str): The file path to the JSON file containing the dream data. 
+    
+    Return:
+    - Dream themes are counted and the top 10 themes are selected for display.
+    - A bar plot is created using seaborn, which shows the frequency of each top theme.
+
+    Raises:
+    - FileNotFoundError: If the JSON file cannot be found at the specified path.
+    - ValueError: If the JSON file is not properly formatted or if essential data columns are missing.
+   
+    A plot titled 'Most Repeated Dream Themes' with 'Frequency' on the x-axis
+    and 'Themes' on the y-axis, showing the themes of dreams that occur most frequently.
+
     """
     # Load the JSON data into a DataFrame
     df = pd.read_json(json_file)
