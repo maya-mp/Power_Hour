@@ -496,10 +496,8 @@ class Dream:
             if str(dream['dream_id']) == dream_id:
                 print("Dream Contents:")
                 print(dream['dream_contents'])
-                break
-            
-            if not dream in dream_data_list:
-                print("Dream not found.")
+            else:
+                raise ValueError("Dream not found. Please run program again.")
             
     def find_dream_theme(self): 
         """
