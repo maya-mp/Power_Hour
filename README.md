@@ -101,7 +101,6 @@ Attribution:
 | Dream.dream_analysis   | Malik Oumarou  | F-strings containing expressions |
 
 Annotations:
-    KHOA do the site for your dream_info regarding datetime and strptime. 
     - dream_info: Method Documentation
 
 - Purpose: dream_info method is designed to collect, validate, and store user inputs regarding dream records. 
