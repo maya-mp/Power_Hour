@@ -1,3 +1,5 @@
+#TO RUN IN TERMINAL: cd to folder and type python dream.py
+
 import json
 import re
 import sys
@@ -52,8 +54,9 @@ def theme_update():
         if theme_value not in theme_dict:  
             raise ValueError("\n\nInvalid number.\n\n")  
     except ValueError:  
-        print("\n\nnInvalid input. Please enter a number between 1 and 8.\n\n")  
-        theme_update()
+        print("\n\nInvalid input. Please enter a number between 1 and 8.\n\n\n")  
+        return 
+
 
     theme_identity = theme_dict[theme_value]
 
@@ -254,9 +257,11 @@ def dream_pandas():
         filtered_df = df[df['top_theme'] == theme_identity]
 
     else:
-        raise NotImplementedError("Invalid input. Please run program again.")
+        print("Invalid input. Please try again.")  
+        return 
     
     print(filtered_df)
+    
 class Dream:
     """
     Takes user inputted dream data and returns analysis, stores data to external
@@ -481,7 +486,7 @@ class Dream:
         Side Effects:
             Reads from a file named 'dream_data.json' 
             interacts with the user via the command line.
-            This method might print an error messages if the dream is not found.
+            This method might print an error message if the dream is not found.
         """
         with open('dream_data.json', 'r') as file:
             dream_data_list = json.load(file)
@@ -489,15 +494,21 @@ class Dream:
         print("Previous Dreams:")
         for dream in dream_data_list:
             print(f"Dream ID: {dream['dream_id']}, Date: {dream['date']}, Time: {dream['time']}")
-            
-        dream_id = input("Enter the ID of the dream you want to read:")
-        
+                
+        dream_id = int(input("Enter the ID of the dream you want to read: "))
+
+        dream_found = False
+
         for dream in dream_data_list:
-            if str(dream['dream_id']) == dream_id:
+            if int(dream['dream_id']) == dream_id:  
                 print("Dream Contents:")
                 print(dream['dream_contents'])
-            else:
-                raise ValueError("Dream not found. Please run program again.")
+                dream_found = True  
+                break  
+
+        if not dream_found:
+            raise ValueError("Dream not found. Please run the program again.")
+
             
     def find_dream_theme(self): 
         """
@@ -560,8 +571,7 @@ class Dream:
                     self.count_theme[theme] = self.count_theme.get(theme, 0) + 1
 
         # find top theme and top 3 and assign back to attribute of instance
-        self.top_3 = sorted(self.count_theme, key=self.count_theme.get,
-                            reverse=True)[:3]
+        self.top_3 = sorted(self.count_theme.items(), key=lambda x: x[1], reverse=True)[:3]
 
         self.top_theme = self.top_3[0] if self.top_3 else None
 
@@ -576,8 +586,8 @@ class Dream:
         - Conditional Expressions
         - F-strings Containing Expressions
         """
-        intro = f"\n\n\nYour top themes were {', '.join(self.top_3)}."
-        " Among those your most prevelant theme was {self.top_theme}.\n\n\n"
+        intro = f"\n\n\nYour top themes were {', '.join(self.top_3)}. Among those, your most prevalent theme was {self.top_theme}.\n\n\n"
+
 
         if self.top_theme == "stress and anxiety":
             print(f"{intro} Your dream indicates you are feeling high levels of" 
